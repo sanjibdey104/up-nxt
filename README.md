@@ -1,2 +1,2 @@
-#Up Nxt
-> A handy todo manager
+# Up Nxt
+### A handy todo manager
