@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
 import db from "./firebase";
+import { ThemeContext } from './context/ThemeContext'
+import { ThemeProvider } from 'styled-components'
+import { ThemePreference } from './styles/themeConfig'
+import { GlobalStyles, lightTheme, darkTheme } from './styles/globalStyles'
 
 function App() {
+
+  const [theme, toggleTheme] = ThemePreference();
+  const themePreference = (theme === 'light') ?  lightTheme : darkTheme;
+
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
 
@@ -26,20 +34,27 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <header>
-        <h2>Up Nxt</h2>
-      </header>
-      <ul className="task-list">
-        {tasks.map((task) => (
-          <li className="task" key={task.key}>
-            <h2>{task.focus}</h2>
-            <p>{task.description}</p>
-            <p>{task.status}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ThemeContext.Provider value={{theme: theme, toggleTheme: toggleTheme}}>
+      <ThemeProvider theme={themePreference}>
+      <GlobalStyles />
+
+      <div className="App">
+        <header>
+          <h2>Up Nxt</h2>
+        </header>
+        <ul className="task-list">
+          {tasks.map((task) => (
+            <li className="task" key={task.key}>
+              <h2>{task.focus}</h2>
+              <p>{task.description}</p>
+              <p>{task.status}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
