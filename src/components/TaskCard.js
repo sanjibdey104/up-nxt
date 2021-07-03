@@ -8,20 +8,26 @@ const StyledTaskCard = styled.li`
   border-radius: 0.85rem;
   padding: 0.85rem;
   background-color: #e9c46a;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.2);
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   .task-focus {
+    width: 100%;
+    height: auto;
     background-color: inherit;
     border: 0;
     outline: 0;
-    font-size: 1rem;
+    font-size: 0.9rem;
+
+    resize: none;
   }
 
   &#todo {
     background-color: #d9ed92;
+    background-color: #abc4ff;
   }
 `;
 
@@ -35,12 +41,16 @@ const TaskCard = ({ task }) => {
 
   return (
     <StyledTaskCard id={task.status}>
-      <input
-        type="text"
-        value={focus}
+      <textarea
+        name="focus"
+        id="focus"
+        cols="30"
+        rows="10"
         className="task-focus"
+        value={focus}
         onChange={(e) => setFocus(e.target.value)}
       />
+
       <button onClick={() => updateTask()}>Update</button>
 
       <p>{task.status}</p>
