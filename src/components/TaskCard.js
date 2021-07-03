@@ -3,6 +3,7 @@ import styled from "styled-components";
 import db from "../firebase";
 import { MdModeEdit } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 const StyledTaskCard = styled.li`
   width: 12rem;
@@ -46,7 +47,8 @@ const StyledTaskCard = styled.li`
     align-items: center;
   }
 
-  .task-edit-btn {
+  .task-edit-btn,
+  .task-delete-btn {
     border-radius: 50%;
     padding: 0.5rem;
     font-size: 0.75rem;
@@ -64,6 +66,10 @@ const TaskCard = ({ task }) => {
   const updateTask = () => {
     db.collection("tasks").doc(key).update({ focus: focusValue });
     setInputFocusState(false);
+  };
+
+  const deleteTask = () => {
+    db.collection("tasks").doc(key).delete();
   };
 
   const focusTaskField = () => {
@@ -91,13 +97,19 @@ const TaskCard = ({ task }) => {
       <section className="footer">
         <p>{task.status}</p>
 
-        <button className="task-edit-btn">
-          {inputFocusState ? (
-            <FaCheck id="update-icon" onClick={() => updateTask()} />
-          ) : (
-            <MdModeEdit onClick={() => focusTaskField()} />
-          )}
-        </button>
+        {task.status === "done" ? (
+          <button className="task-delete-btn">
+            <MdDelete onClick={() => deleteTask()} />
+          </button>
+        ) : (
+          <button className="task-edit-btn">
+            {inputFocusState ? (
+              <FaCheck id="update-icon" onClick={() => updateTask()} />
+            ) : (
+              <MdModeEdit onClick={() => focusTaskField()} />
+            )}
+          </button>
+        )}
       </section>
     </StyledTaskCard>
   );

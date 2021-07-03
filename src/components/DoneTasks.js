@@ -7,7 +7,7 @@ const DoneTasks = ({ doneTasks }) => {
       {doneTasks.length ? (
         doneTasks.map((task) => <TaskCard key={task.key} task={task} />)
       ) : (
-        <p>"nothing here yet"</p>
+        <p>Looks clear</p>
       )}
     </ul>
   );
