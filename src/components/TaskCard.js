@@ -28,8 +28,16 @@ const StyledTaskCard = styled.li`
   }
 
   &#todo {
-    background-color: #d9ed92;
+    /* background-color: #d9ed92; */
     background-color: #abc4ff;
+  }
+
+  &#ongoing {
+    background-color: #e9c46a;
+  }
+
+  &#done {
+    background-color: #95d5b2;
   }
 
   .footer {
@@ -44,14 +52,6 @@ const StyledTaskCard = styled.li`
     font-size: 0.75rem;
     background-color: #000;
     color: #ffffffda;
-  }
-
-  .task-update-btn {
-    display: none;
-
-    &.show {
-      display: block;
-    }
   }
 `;
 
@@ -68,6 +68,7 @@ const TaskCard = ({ task }) => {
 
   const focusTaskField = () => {
     inputRef.current.focus();
+    setInputFocusState(true);
   };
 
   return (
@@ -84,7 +85,6 @@ const TaskCard = ({ task }) => {
             e.currentTarget.value.length,
             e.currentTarget.value.length
           );
-          setInputFocusState(true);
         }}
       />
 
