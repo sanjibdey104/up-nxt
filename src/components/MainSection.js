@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import db from "../firebase";
 import styled from "styled-components";
-import TaskCard from "./TaskCard";
 import { FiSearch } from "react-icons/fi";
+import TaskList from "../components/TaskList";
 
 const Main = styled.main`
   display: flex;
@@ -34,12 +34,6 @@ const SearchBar = styled.section`
   }
 `;
 
-const TaskList = styled.ul`
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-`;
-
 const MainSection = () => {
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
@@ -60,10 +54,6 @@ const MainSection = () => {
     fetchTasks();
   }, []);
 
-  if (loading) {
-    return <h2>loading...</h2>;
-  }
-
   return (
     <Main>
       <SearchBar>
@@ -74,11 +64,7 @@ const MainSection = () => {
       <h2 className="title">Tasks</h2>
 
       <section className="task-list-container">
-        <TaskList>
-          {tasks.map((task) => (
-            <TaskCard key={task.key} task={task} />
-          ))}
-        </TaskList>
+        <TaskList tasks={tasks} loading={loading} />
       </section>
     </Main>
   );

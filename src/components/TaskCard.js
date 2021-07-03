@@ -30,9 +30,7 @@ const TaskCard = ({ task }) => {
   const [focus, setFocus] = useState(task.focus);
 
   const updateTask = () => {
-    db.collection("tasks")
-      .doc(key)
-      .set({ ...task, focus });
+    db.collection("tasks").doc(key).update({ focus: focus });
   };
 
   return (
