@@ -1,28 +1,53 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useState } from "react";
+import styled from "styled-components";
+import db from "../firebase";
 
 const StyledTaskCard = styled.li`
-    width: 14rem;
-    height: 14rem;
-    border-radius: 0.85rem;
-    padding: 0.85rem;
-    background-color: #e9c46a;
+  width: 12rem;
+  height: 12rem;
+  border-radius: 0.85rem;
+  padding: 0.85rem;
+  background-color: #e9c46a;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
-const TaskCard = ({task}) => {
+  .task-focus {
+    background-color: inherit;
+    border: 0;
+    outline: 0;
+    font-size: 1rem;
+  }
 
-    const {focus, status} = task;
+  &#todo {
+    background-color: #d9ed92;
+  }
+`;
 
-    return (
-        <StyledTaskCard>
-            <p>{focus}</p>
-            <p>{status}</p>
-        </StyledTaskCard>
-    )
-}
+const TaskCard = ({ task }) => {
+  const { key } = task;
+  const [focus, setFocus] = useState(task.focus);
 
-export default TaskCard
+  const updateTask = () => {
+    db.collection("tasks")
+      .doc(key)
+      .set({ ...task, focus });
+  };
+
+  return (
+    <StyledTaskCard id={task.status}>
+      <input
+        type="text"
+        value={focus}
+        className="task-focus"
+        onChange={(e) => setFocus(e.target.value)}
+      />
+      <button onClick={() => updateTask()}>Update</button>
+
+      <p>{task.status}</p>
+    </StyledTaskCard>
+  );
+};
+
+export default TaskCard;
