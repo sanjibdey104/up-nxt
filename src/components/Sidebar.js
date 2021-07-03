@@ -5,28 +5,29 @@ import { FiPlus } from "react-icons/fi";
 const SidebarSection = styled.section`
   width: 10%;
   height: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 3rem;
   padding: 1rem 0;
-  box-shadow: 3px 0 3px rgba(0, 0, 0, 0.2);
+  border-right: 1px solid #a5a5a5;
 
   position: fixed;
-  left: 0;
+  left: 5%;
 
   .create-note-btn {
     background-color: black;
     color: white;
     padding: 0.5rem;
     font-size: 1rem;
+    width: 2rem;
     border-radius: 50%;
   }
 
   .logo {
     p {
-      font-size: 0.85rem;
-      font-weight: 500;
+      font-weight: 600;
       color: #000;
       padding: 0.45rem;
     }

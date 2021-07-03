@@ -1,36 +1,33 @@
 import React, { useState, useEffect } from "react";
 import db from "../firebase";
 import styled from "styled-components";
-import { FiSearch } from "react-icons/fi";
 import TaskListContainer from "./TaskListContainer";
+import { FiSearch } from "react-icons/fi";
 
 const Main = styled.main`
+  width: 90%;
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  flex-grow: 1;
   padding: 1rem;
-
-  .title {
-    font-size: 1.75rem;
-  }
+  margin-left: 18%;
 `;
 
 const SearchBar = styled.section`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  position: relative;
 
-  border: 1px solid #adb5bd;
   border-radius: 0.75rem;
   background-color: white;
-  width: 15rem;
-  padding: 0 0.5rem;
+  width: 20rem;
 
   .search-input {
+    font-size: 1rem;
     padding: 0.3rem 0.85rem;
     border: 0;
+    outline: 0;
+    font-weight: 500;
   }
 `;
 
