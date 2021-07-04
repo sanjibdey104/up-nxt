@@ -32,6 +32,16 @@ const StyledTaskCard = styled.li`
     resize: none;
   }
 
+  #task-status-options {
+    background-color: inherit;
+    border: 0;
+    max-width: 5rem;
+
+    option {
+      background-color: inherit;
+    }
+  }
+
   &#todo {
     /* background-color: #d9ed92; */
     background-color: #abc4ff;
@@ -81,6 +91,11 @@ const TaskCard = ({ task }) => {
     setInputFocusState(true);
   };
 
+  const statusOptions = ["todo", "ongoing", "done"];
+  const updateTaskStatus = (e) => {
+    db.collection("tasks").doc(key).update({ status: e.target.value });
+  };
+
   return (
     <StyledTaskCard id={task.status}>
       <textarea
@@ -100,7 +115,20 @@ const TaskCard = ({ task }) => {
       />
 
       <section className="footer">
-        <p>{task.status}</p>
+        <select
+          name="task-status-options"
+          id="task-status-options"
+          value={task.status}
+          onChange={(e) => updateTaskStatus(e)}
+        >
+          {statusOptions.map((option) => {
+            return (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            );
+          })}
+        </select>
 
         {task.status === "done" ? (
           <button className="task-delete-btn">
