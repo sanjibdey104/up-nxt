@@ -12,14 +12,12 @@ const SidebarSection = styled.section`
   align-items: center;
   gap: 3rem;
   padding: 1rem 0;
-  background-color: #61a5c2;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   position: fixed;
   top: 0;
 
   .create-task-wrapper {
-    width: 18rem;
+    width: 20rem;
     padding: 0 0.5rem;
     display: flex;
     align-items: center;
@@ -85,14 +83,6 @@ const SidebarSection = styled.section`
     margin-left: auto;
     z-index: 2;
   }
-
-  .logo {
-    p {
-      font-weight: 600;
-      color: #000;
-      padding: 0.45rem;
-    }
-  }
 `;
 
 const Sidebar = () => {
@@ -106,10 +96,6 @@ const Sidebar = () => {
 
   return (
     <SidebarSection>
-      <header className="logo">
-        <p>UpNxt</p>
-      </header>
-
       <div className="create-task-wrapper">
         <div className="create-task">
           <input

@@ -8,6 +8,7 @@ import { GlobalStyles, lightTheme, darkTheme } from "./styles/globalStyles";
 
 import Sidebar from "./components/Sidebar";
 import MainSection from "./components/MainSection";
+import Logo from "./components/Logo";
 
 function App() {
   const [theme, toggleTheme] = ThemePreference();
@@ -22,6 +23,7 @@ function App() {
 
         <TaskListContext.Provider value={{ tasks: tasks, loading: loading }}>
           <div className="container">
+            <Logo />
             <Sidebar />
             <MainSection />
           </div>
