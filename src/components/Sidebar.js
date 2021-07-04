@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { FiPlus, FiSearch } from "react-icons/fi";
+import { FiPlus } from "react-icons/fi";
+import db from "../firebase";
 
 const SidebarSection = styled.section`
   width: 100%;
@@ -95,6 +96,14 @@ const SidebarSection = styled.section`
 `;
 
 const Sidebar = () => {
+  const [task, setTask] = useState("");
+
+  const createNewTask = () => {
+    let newTask = { focus: task, status: "todo" };
+    db.collection("tasks").add(newTask);
+    setTask("");
+  };
+
   return (
     <SidebarSection>
       <header className="logo">
@@ -107,8 +116,10 @@ const Sidebar = () => {
             type="text"
             className="create-task_input"
             placeholder="new task?"
+            value={task}
+            onChange={(e) => setTask(e.target.value)}
           />
-          <button className="create-task_btn">
+          <button className="create-task_btn" onClick={() => createNewTask()}>
             <FiPlus />
           </button>
         </div>
