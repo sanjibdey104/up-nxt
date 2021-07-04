@@ -6,6 +6,7 @@ import { TaskListContext } from "../context/TaskListContext";
 const Main = styled.main`
   width: 90%;
   margin: 0 auto;
+  margin-bottom: 5rem;
 
   @media (max-width: 768px) {
     width: 100%;

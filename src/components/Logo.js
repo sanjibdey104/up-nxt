@@ -15,7 +15,7 @@ const StyledLogo = styled.div`
   align-items: flex-end;
   justify-content: center;
 
-  background-color: black;
+  background: linear-gradient(to right, #9d4edd, #3c096c);
   color: #ffffffda;
 
   p {
