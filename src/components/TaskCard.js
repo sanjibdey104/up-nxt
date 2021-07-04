@@ -95,6 +95,7 @@ const TaskCard = ({ task }) => {
             e.currentTarget.value.length,
             e.currentTarget.value.length
           );
+          setInputFocusState(true);
         }}
       />
 
