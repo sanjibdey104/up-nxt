@@ -7,17 +7,21 @@ import TodoTasks from "./TodoTasks";
 
 const StyledTaskListContainer = styled.section`
   display: flex;
+  justify-content: space-around;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 3rem;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 
   .task-list {
-    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0.75rem 0;
-    background-color: #f5f3f4;
+
+    padding: 0.75rem;
     border-radius: 0.75rem;
+    background-color: #f5f3f4;
 
     h2 {
       margin-bottom: 2rem;
@@ -30,11 +34,6 @@ const StyledTaskListContainer = styled.section`
       align-items: center;
       flex-wrap: wrap;
       gap: 2rem;
-
-      @media (max-width: 900px) {
-        flex-direction: row;
-        justify-content: space-around;
-      }
     }
   }
 `;

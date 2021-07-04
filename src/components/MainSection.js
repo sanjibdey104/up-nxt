@@ -4,20 +4,19 @@ import TaskListContainer from "./TaskListContainer";
 import { TaskListContext } from "../context/TaskListContext";
 
 const Main = styled.main`
-  width: 75%;
+  width: 70%;
   margin: 0 auto;
   margin-bottom: 5rem;
-
-  @media (max-width: 768px) {
-    width: 90%;
-    padding: 0.5rem;
-  }
 
   display: flex;
   flex-direction: column;
   gap: 3rem;
   padding: 1rem;
   margin-top: 7.5rem;
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
 `;
 
 const MainSection = () => {
