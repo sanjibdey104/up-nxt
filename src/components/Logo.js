@@ -1,26 +1,25 @@
 import React from "react";
 import styled from "styled-components";
+import { FaTasks } from "react-icons/fa";
 
 const StyledLogo = styled.div`
-  width: 10rem;
-  height: 5rem;
+  width: 5rem;
   position: absolute;
-  left: 0;
-  top: 0;
-  transform: translateX(-40%) translateY(-30%) rotate(-45deg);
-  text-align: center;
+  left: 0.5rem;
+  top: 1rem;
   z-index: 10;
 
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-
-  background: linear-gradient(to right, #9d4edd, #3c096c);
-  color: #ffffffda;
 
   p {
     font-weight: 600;
     padding: 0.45rem;
+  }
+
+  #icon {
+    font-size: 1.5rem;
   }
 `;
 
@@ -28,6 +27,7 @@ const Logo = () => {
   return (
     <StyledLogo>
       <p>UpNxt</p>
+      <FaTasks id="icon" />
     </StyledLogo>
   );
 };

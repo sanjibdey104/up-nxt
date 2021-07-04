@@ -16,15 +16,16 @@ const SidebarSection = styled.section`
 
   position: fixed;
   top: 0;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 
   @media (max-width: 600px) {
     top: unset;
     bottom: 0;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   }
 
   .create-task-wrapper {
-    width: 20rem;
+    width: 25rem;
+    height: 3rem;
     padding: 0 0.5rem;
     display: flex;
     align-items: center;
