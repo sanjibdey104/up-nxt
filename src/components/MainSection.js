@@ -7,6 +7,11 @@ const Main = styled.main`
   width: 90%;
   margin: 0 auto;
 
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
   display: flex;
   flex-direction: column;
   gap: 3rem;

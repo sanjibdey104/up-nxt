@@ -6,12 +6,16 @@ import { FaCheck } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
 const StyledTaskCard = styled.li`
-  width: 12rem;
-  height: 12rem;
+  width: 18rem;
+  height: 8rem;
   border-radius: 0.85rem;
   padding: 0.75rem;
   background-color: #e9c46a;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 768px) {
+    width: 20rem;
+  }
 
   display: flex;
   flex-direction: column;

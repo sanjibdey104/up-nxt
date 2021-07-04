@@ -19,17 +19,18 @@ const StyledTaskListContainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
+
     h2 {
       margin-bottom: 2rem;
       font-size: 1.2rem;
     }
 
     ul {
-      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      flex-wrap: wrap;
+      gap: 2rem;
 
       @media (max-width: 768px) {
         flex-direction: row;
