@@ -9,7 +9,7 @@ const StyledTaskListContainer = styled.section`
   justify-content: center;
   gap: 1rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     flex-direction: column;
     gap: 4rem;
   }
@@ -32,7 +32,7 @@ const StyledTaskListContainer = styled.section`
       flex-wrap: wrap;
       gap: 2rem;
 
-      @media (max-width: 768px) {
+      @media (max-width: 900px) {
         flex-direction: row;
         justify-content: space-around;
       }
