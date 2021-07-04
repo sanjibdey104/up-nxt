@@ -113,7 +113,10 @@ const Sidebar = () => {
             value={task}
             onChange={(e) => setTask(e.target.value)}
           />
-          <button className="create-task_btn" onClick={() => createNewTask()}>
+          <button
+            className="create-task_btn"
+            onClick={() => (task ? createNewTask() : null)}
+          >
             <FiPlus />
           </button>
         </div>
