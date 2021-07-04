@@ -9,6 +9,7 @@ import { GlobalStyles, lightTheme, darkTheme } from "./styles/globalStyles";
 import Sidebar from "./components/Sidebar";
 import MainSection from "./components/MainSection";
 import Logo from "./components/Logo";
+import Container from "./components/Container";
 
 function App() {
   const [theme, toggleTheme] = ThemePreference();
@@ -20,14 +21,7 @@ function App() {
     <ThemeContext.Provider value={{ theme: theme, toggleTheme: toggleTheme }}>
       <ThemeProvider theme={themePreference}>
         <GlobalStyles />
-
-        <TaskListContext.Provider value={{ tasks: tasks, loading: loading }}>
-          <div className="container">
-            <Logo />
-            <Sidebar />
-            <MainSection />
-          </div>
-        </TaskListContext.Provider>
+        <Container />
       </ThemeProvider>
     </ThemeContext.Provider>
   );
