@@ -1,24 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import BacklogTasks from "./BacklogTasks";
 import DoneTasks from "./DoneTasks";
 import OnGoingTasks from "./OnGoingTasks";
 import TodoTasks from "./TodoTasks";
 
 const StyledTaskListContainer = styled.section`
   display: flex;
-  justify-content: center;
-  gap: 1rem;
-
-  @media (max-width: 900px) {
-    flex-direction: column;
-    gap: 4rem;
-  }
+  flex-wrap: wrap;
+  gap: 2rem;
 
   .task-list {
     flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0.75rem 0;
+    background-color: #f5f3f4;
+    border-radius: 0.75rem;
 
     h2 {
       margin-bottom: 2rem;
@@ -43,6 +42,10 @@ const StyledTaskListContainer = styled.section`
 const TaskListContainer = () => {
   return (
     <StyledTaskListContainer>
+      <div className="task-list backlog-task-list">
+        <h2>Backlog</h2>
+        <BacklogTasks />
+      </div>
       <div className="task-list todo-task-list">
         <h2>ToDo</h2>
         <TodoTasks />

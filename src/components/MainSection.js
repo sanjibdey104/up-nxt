@@ -4,12 +4,12 @@ import TaskListContainer from "./TaskListContainer";
 import { TaskListContext } from "../context/TaskListContext";
 
 const Main = styled.main`
-  width: 90%;
+  width: 75%;
   margin: 0 auto;
   margin-bottom: 5rem;
 
   @media (max-width: 768px) {
-    width: 100%;
+    width: 90%;
     padding: 0.5rem;
   }
 

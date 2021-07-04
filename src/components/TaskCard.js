@@ -43,7 +43,6 @@ const StyledTaskCard = styled.li`
   }
 
   &#todo {
-    /* background-color: #d9ed92; */
     background-color: #abc4ff;
   }
 
@@ -53,6 +52,10 @@ const StyledTaskCard = styled.li`
 
   &#done {
     background-color: #95d5b2;
+  }
+
+  &#backlog {
+    background-color: #ffb3c1;
   }
 
   .footer {
@@ -91,7 +94,7 @@ const TaskCard = ({ task }) => {
     setInputFocusState(true);
   };
 
-  const statusOptions = ["todo", "ongoing", "done"];
+  const statusOptions = ["todo", "ongoing", "done", "backlog"];
   const updateTaskStatus = (e) => {
     db.collection("tasks").doc(key).update({ status: e.target.value });
   };
