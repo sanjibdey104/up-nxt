@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TaskListContext } from "../context/TaskListContext";
 import TaskCard from "./TaskCard";
 
-const OnGoingTasks = ({ ongoingTasks }) => {
+const OnGoingTasks = () => {
+  const { tasks } = useContext(TaskListContext);
+  const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
+
   return (
     <ul>
       {ongoingTasks.map((task) => (

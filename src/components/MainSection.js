@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import db from "../firebase";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import TaskListContainer from "./TaskListContainer";
 import { FiSearch } from "react-icons/fi";
+import { TaskListContext } from "../context/TaskListContext";
 
 const Main = styled.main`
   width: 90%;
@@ -32,24 +32,7 @@ const SearchBar = styled.section`
 `;
 
 const MainSection = () => {
-  const [loading, setLoading] = useState(false);
-  const [tasks, setTasks] = useState([]);
-
-  const fetchTasks = () => {
-    setLoading(true);
-    db.collection("tasks").onSnapshot((querySnapshot) => {
-      let arr = querySnapshot.docs.map((doc) => ({
-        ...doc.data(),
-        key: doc.id,
-      }));
-      setTasks(arr);
-      setLoading(false);
-    });
-  };
-
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  const { loading } = useContext(TaskListContext);
 
   return (
     <Main>
@@ -58,7 +41,7 @@ const MainSection = () => {
         <input type="text" className="search-input" placeholder="search" />
       </SearchBar>
 
-      <TaskListContainer tasks={tasks} loading={loading} />
+      <TaskListContainer loading={loading} />
     </Main>
   );
 };

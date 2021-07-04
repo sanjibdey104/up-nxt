@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TaskListContext } from "../context/TaskListContext";
 import TaskCard from "./TaskCard";
 
-const DoneTasks = ({ doneTasks }) => {
+const DoneTasks = () => {
+  const { tasks } = useContext(TaskListContext);
+  const doneTasks = tasks.filter((task) => task.status === "done");
+
   return (
     <ul>
       {doneTasks.length ? (

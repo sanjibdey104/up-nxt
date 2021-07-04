@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
+import { TaskListContext } from "../context/TaskListContext";
 
 const SidebarSection = styled.section`
   width: 10%;

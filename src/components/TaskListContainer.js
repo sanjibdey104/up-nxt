@@ -37,25 +37,20 @@ const StyledTaskListContainer = styled.section`
   }
 `;
 
-const TaskListContainer = ({ tasks, loading }) => {
-  // filter data as per status
-  const todoTasks = tasks.filter((task) => task.status === "todo");
-  const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
-  const doneTasks = tasks.filter((task) => task.status === "done");
-
+const TaskListContainer = () => {
   return (
     <StyledTaskListContainer>
       <div className="task-list todo-task-list">
         <h2>ToDo</h2>
-        <TodoTasks todoTasks={todoTasks} />
+        <TodoTasks />
       </div>
       <div className="task-list ongoing-task-list">
         <h2>Ongoing</h2>
-        <OnGoingTasks ongoingTasks={ongoingTasks} />
+        <OnGoingTasks />
       </div>
       <div className="task-list done-task-list">
         <h2>Done</h2>
-        <DoneTasks doneTasks={doneTasks} />
+        <DoneTasks />
       </div>
     </StyledTaskListContainer>
   );
