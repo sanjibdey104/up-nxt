@@ -6,6 +6,7 @@ import TodoTasks from "./TodoTasks";
 
 const StyledTaskListContainer = styled.section`
   display: flex;
+  justify-content: center;
   gap: 1rem;
 
   @media (max-width: 768px) {
@@ -17,7 +18,7 @@ const StyledTaskListContainer = styled.section`
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     h2 {
       margin-bottom: 2rem;
       font-size: 1.2rem;
@@ -27,6 +28,7 @@ const StyledTaskListContainer = styled.section`
       width: 100%;
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 1rem;
 
       @media (max-width: 768px) {

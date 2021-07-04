@@ -1,29 +1,88 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { FiPlus } from "react-icons/fi";
-import { TaskListContext } from "../context/TaskListContext";
+import { FiPlus, FiSearch } from "react-icons/fi";
 
 const SidebarSection = styled.section`
-  width: 10%;
-  height: 100%;
+  width: 100%;
+  justify-content: space-around;
+  z-index: 5;
 
   display: flex;
-  flex-direction: column;
   align-items: center;
   gap: 3rem;
   padding: 1rem 0;
-  border-right: 1px solid #a5a5a5;
+  background-color: #61a5c2;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   position: fixed;
-  left: 5%;
+  top: 0;
 
-  .create-note-btn {
+  .create-task-wrapper {
+    width: 18rem;
+    padding: 0 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .create-task {
+    width: 100%;
+    height: 100%;
+
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2), inset 0 0 3px rgba(0, 0, 0, 0.2);
+    border-radius: 100px;
+    padding: 5px;
+    background: linear-gradient(to right, #caf0f8, #90e0ef);
+
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &:hover,
+    &:focus {
+      outline: 0;
+      box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  .create-task_input {
+    font-size: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    width: 90%;
+    padding: 0.5rem 1rem;
+    font-size: 1.1rem;
+    border: 0;
+    color: black;
+    background-color: transparent;
+
+    &::placeholder {
+      font-size: 0.9rem;
+      color: #333;
+    }
+
+    &:hover,
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .create-task_btn {
     background-color: black;
     color: white;
     padding: 0.5rem;
     font-size: 1rem;
+
     width: 2rem;
+    height: 2rem;
+    display: grid;
+    place-content: center;
     border-radius: 50%;
+    margin-left: auto;
+    z-index: 2;
   }
 
   .logo {
@@ -42,9 +101,18 @@ const Sidebar = () => {
         <p>UpNxt</p>
       </header>
 
-      <button className="create-note-btn">
-        <FiPlus />
-      </button>
+      <div className="create-task-wrapper">
+        <div className="create-task">
+          <input
+            type="text"
+            className="create-task_input"
+            placeholder="new task?"
+          />
+          <button className="create-task_btn">
+            <FiPlus />
+          </button>
+        </div>
+      </div>
     </SidebarSection>
   );
 };
