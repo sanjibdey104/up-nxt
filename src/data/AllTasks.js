@@ -19,6 +19,8 @@ export const FetchAllTasks = () => {
 
   useEffect(() => {
     fetchTasks();
+
+    return () => fetchTasks();
   }, []);
 
   return [tasks, loading];

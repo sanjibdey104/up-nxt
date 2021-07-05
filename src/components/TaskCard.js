@@ -64,6 +64,10 @@ const StyledTaskCard = styled.li`
     align-items: center;
   }
 
+  #date {
+    font-size: 0.85rem;
+  }
+
   .task-edit-btn,
   .task-delete-btn {
     border-radius: 50%;
@@ -75,10 +79,16 @@ const StyledTaskCard = styled.li`
 `;
 
 const TaskCard = ({ task }) => {
-  const { key } = task;
+  const { key, status, createdAt } = task;
   const [focusValue, setFocusValue] = useState(task.focus);
   const [inputFocusState, setInputFocusState] = useState(false);
   const inputRef = useRef();
+
+  let taskDate = new Date(createdAt.toDate());
+  const taskCreationDate = taskDate.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+  });
 
   const updateTask = () => {
     db.collection("tasks").doc(key).update({ focus: focusValue });
@@ -121,7 +131,7 @@ const TaskCard = ({ task }) => {
         <select
           name="task-status-options"
           id="task-status-options"
-          value={task.status}
+          value={status}
           onChange={(e) => updateTaskStatus(e)}
         >
           {statusOptions.map((option) => {
@@ -132,6 +142,8 @@ const TaskCard = ({ task }) => {
             );
           })}
         </select>
+
+        <p id="date">{taskCreationDate}</p>
 
         {task.status === "done" ? (
           <button className="task-delete-btn">
