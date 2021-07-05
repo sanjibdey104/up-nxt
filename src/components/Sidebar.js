@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FiPlus } from "react-icons/fi";
 import db from "../firebase";
+import firebase from "firebase";
 
 const SidebarSection = styled.section`
   width: 100%;
@@ -97,7 +98,11 @@ const Sidebar = () => {
   const [task, setTask] = useState("");
 
   const createNewTask = () => {
-    let newTask = { focus: task, status: "todo" };
+    let newTask = {
+      focus: task,
+      status: "todo",
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    };
     db.collection("tasks").add(newTask);
     setTask("");
   };
