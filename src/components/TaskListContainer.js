@@ -19,7 +19,7 @@ const StyledTaskListContainer = styled.section`
     flex-direction: column;
     align-items: center;
 
-    padding: 0.75rem;
+    padding: 0.75rem 1rem;
     border-radius: 0.75rem;
     background-color: #e9ecef;
 
