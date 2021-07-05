@@ -9,17 +9,18 @@ const StyledTaskListContainer = styled.section`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 4rem;
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 0.85fr));
 
   .task-list {
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid black;
 
-    padding: 0.75rem 1rem;
+    padding: 0.75rem;
     border-radius: 0.75rem;
     background-color: #e9ecef;
 

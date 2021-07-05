@@ -5,7 +5,7 @@ import { TaskListContext } from "../context/TaskListContext";
 import doodleNerdCat from "../images/doodle-nerd-cat.svg";
 
 const Main = styled.main`
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
   margin-bottom: 5rem;
 
