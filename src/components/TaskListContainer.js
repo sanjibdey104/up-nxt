@@ -21,7 +21,7 @@ const StyledTaskListContainer = styled.section`
 
     padding: 0.75rem;
     border-radius: 0.75rem;
-    background-color: #f5f3f4;
+    background-color: #e9ecef;
 
     h2 {
       margin-bottom: 2rem;

@@ -27,7 +27,7 @@ const StyledTaskCard = styled.li`
     background-color: inherit;
     border: 0;
     outline: 0;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
 
     resize: none;
   }

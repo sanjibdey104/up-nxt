@@ -5,7 +5,6 @@ import { FetchAllTasks } from "../data/AllTasks";
 import Logo from "./Logo";
 import Sidebar from "./Sidebar";
 import MainSection from "./MainSection";
-import doodleNerdCat from "../images/doodle-nerd-cat.svg";
 
 const StyledContainer = styled.div`
   width: 100%;
@@ -13,14 +12,7 @@ const StyledContainer = styled.div`
   margin: 0 auto;
   position: relative;
   display: flex;
-
-  #doodle-nerd-cat {
-    z-index: 10;
-    width: clamp(5.5rem, 10vw, 10rem);
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
+  background: linear-gradient(45deg, #a9d6e5, #89c2d9, #61a5c2);
 `;
 
 const Container = () => {
@@ -29,7 +21,6 @@ const Container = () => {
   return (
     <TaskListContext.Provider value={{ tasks: tasks, loading: loading }}>
       <StyledContainer>
-        <img src={doodleNerdCat} alt="doodle nerd cat" id="doodle-nerd-cat" />
         <Logo />
         <Sidebar />
         <MainSection />

@@ -11,7 +11,8 @@ html {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Solway', serif;
+    font-family: 'Space Mono', monospace;
 }
 
 body {

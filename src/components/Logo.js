@@ -14,12 +14,17 @@ const StyledLogo = styled.div`
   justify-content: center;
 
   p {
+    font-size: 1.2rem;
     font-weight: 600;
     padding: 0.45rem;
   }
 
   #icon {
-    font-size: 1.5rem;
+    position: absolute;
+    right: -1rem;
+    /* width: 1.5rem;
+    height: 2.5rem; */
+    font-size: 1.2rem;
   }
 `;
 
