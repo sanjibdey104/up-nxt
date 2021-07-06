@@ -18,15 +18,26 @@ const StyledTaskListContainer = styled.section`
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
-
     padding: 0.75rem;
-    border-radius: 0.75rem;
-    background-color: #e9ecef;
+    position: relative;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: clamp(260px, 40vw, 270px);
+      margin: 0 auto;
+
+      background-color: #e9ecef;
+      border-radius: 0.75rem;
+      border: 1px solid black;
+    }
 
     h2 {
       margin-bottom: 2rem;
       font-size: 1.2rem;
+      z-index: 1;
     }
 
     ul {
@@ -35,6 +46,7 @@ const StyledTaskListContainer = styled.section`
       align-items: center;
       flex-wrap: wrap;
       gap: 2rem;
+      z-index: 1;
     }
   }
 `;
