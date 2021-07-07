@@ -3,6 +3,7 @@ import BacklogTasks from "./BacklogTasks";
 import TodoTasks from "./TodoTasks";
 import DoneTasks from "./DoneTasks";
 import styled from "styled-components";
+import OngoingTasks from "./OnGoingTasks";
 
 const StyledTaskListContainer = styled.section`
   width: 90%;
@@ -53,6 +54,11 @@ const TaskListContainer = ({ tasks }) => {
       <div className="task-status todo-tasks">
         <h2 className="status">Todo</h2>
         <TodoTasks tasks={todoTasks} />
+      </div>
+
+      <div className="task-status ongoing-tasks">
+        <h2 className="status">Ongoing</h2>
+        <OngoingTasks tasks={ongoingTasks} />
       </div>
 
       <div className="task-status done-tasks">
