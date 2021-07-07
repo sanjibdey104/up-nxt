@@ -2,6 +2,10 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
+:root {
+    --box-shadow: 0 0 3px #d5d5d5, 3px 3px 0 rgba(0,0,0,0.3);
+}
+
 html {
     box-sizing: border-box;
     font-size: 100%;
@@ -11,25 +15,46 @@ html {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
-    font-family: 'Solway', serif;
-    font-family: 'Space Mono', monospace;
 }
 
 body {
     width: 100%;
     height: 100vh;
-    background-color: ${({ theme }) => theme.backgroundColor};
-    color: ${({ theme }) => theme.textColor};
+    background-color: #fff;
+    color: #000;
     line-height: 1.4;
+
+    font-family: 'Solway', serif;
+    font-family: 'Space Mono', monospace;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
 }
 
 .container {
-    width: 100%;
-    min-height: 100vh;
+    width: 85%;
     margin: 0 auto;
-    position: relative;
+    min-height: 100%;
+    padding: 2rem 0;
+
+    @media (max-width: 600px) {
+        width: 95%;
+    }
 
     display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading-indicator {
+    width: 100%;
+    height: 100%;
+}
+
+input,textarea,button, select {
+    font-family: inherit;
 }
 
 ul {
@@ -51,19 +76,3 @@ button {
     background-color: inherit;
 }
 `;
-
-export const lightTheme = {
-  backgroundColor: "#fff",
-  textColor: "#000",
-  accentColor: "#4262ff",
-  boxShadow: "inset 0 0 7.5px rgba(0,0,0,0.2)",
-  mobileNavLink: "#ffffffda",
-};
-
-export const darkTheme = {
-  backgroundColor: "#121212",
-  textColor: "#ffffffda",
-  accentColor: "#bb86fc",
-  boxShadow: "0 0 8px #000",
-  mobileNavLink: "#000",
-};

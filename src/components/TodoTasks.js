@@ -1,14 +1,10 @@
-import React, { useContext } from "react";
-import { TaskListContext } from "../context/TaskListContext";
+import React from "react";
 import TaskCard from "./TaskCard";
 
-const TodoTasks = () => {
-  const { tasks } = useContext(TaskListContext);
-  const todoTasks = tasks.filter((task) => task.status === "todo");
-
+const TodoTasks = ({ tasks }) => {
   return (
     <ul>
-      {todoTasks.map((task) => (
+      {tasks.map((task) => (
         <TaskCard key={task.key} task={task} />
       ))}
     </ul>

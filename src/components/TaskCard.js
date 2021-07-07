@@ -1,102 +1,92 @@
-import React, { useState, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styled from "styled-components";
+import { AuthContext } from "../Auth";
 import db from "../firebase";
-import { MdModeEdit } from "react-icons/md";
 import { FaCheck } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
+import { MdModeEdit, MdDelete } from "react-icons/md";
 
 const StyledTaskCard = styled.li`
-  width: 18rem;
-  height: 8rem;
-  border-radius: 0.85rem;
-  padding: 0.75rem;
-  background-color: #e9c46a;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3), inset 0 0 5px rgba(0, 0, 0, 0.2);
-
-  @media (max-width: 768px) {
-    width: 20rem;
-  }
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 0.5rem;
 
-  .task-focus {
-    width: 100%;
-    height: auto;
-    background-color: inherit;
-    border: 0;
-    outline: 0;
-    font-size: 1.1rem;
-
-    resize: none;
-  }
-
-  #task-status-options {
-    background-color: inherit;
-    border: 0;
-    max-width: 5rem;
-
-    option {
-      background-color: inherit;
-    }
-  }
+  height: 8rem;
+  width: 18rem;
+  padding: 0.5rem;
+  box-shadow: 3px 3px #000;
+  border-radius: 0.5rem;
 
   &#todo {
     background-color: #abc4ff;
   }
-
   &#ongoing {
     background-color: #e9c46a;
   }
-
   &#done {
     background-color: #95d5b2;
   }
-
   &#backlog {
     background-color: #ffb3c1;
   }
 
-  .footer {
+  #task-focus {
+    background-color: inherit;
+    border: 0;
+    width: 100%;
+    resize: none;
+    font-size: 1.1rem;
+  }
+
+  .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
-  #date {
-    font-size: 0.85rem;
+  #task-status-options {
+    background-color: inherit;
+    border: 0;
+    option {
+      background-color: inherit;
+    }
   }
 
-  .task-edit-btn,
-  .task-delete-btn {
-    border-radius: 50%;
-    padding: 0.5rem;
-    font-size: 0.75rem;
+  #date {
+    font-size: 0.85rem;
+    font-weight: bolder;
+  }
+
+  #task-edit-btn,
+  #task-delete-btn {
     background-color: #000;
     color: #ffffffda;
+    border-radius: 50%;
+    padding: 0.4rem;
   }
 `;
 
 const TaskCard = ({ task }) => {
-  const { key, status, createdAt } = task;
-  const [focusValue, setFocusValue] = useState(task.focus);
-  const [inputFocusState, setInputFocusState] = useState(false);
+  const { status, focus, createdAt, key } = task;
+  const { currentUser } = useContext(AuthContext);
+  const { uid } = currentUser;
   const inputRef = useRef();
 
-  let taskDate = new Date(createdAt.toDate());
+  const [focusValue, setFocusValue] = useState(focus);
+  const [inputFocusState, setInputFocusState] = useState(false);
+
+  const taskDate = new Date(createdAt.toDate());
   const taskCreationDate = taskDate.toLocaleDateString("en-US", {
     day: "numeric",
     month: "short",
   });
 
-  const updateTask = () => {
-    db.collection("tasks").doc(key).update({ focus: focusValue });
-    setInputFocusState(false);
-  };
+  const statusOptions = ["todo", "ongoing", "done", "backlog"];
 
-  const deleteTask = () => {
-    db.collection("tasks").doc(key).delete();
+  const updateTaskStatus = (e) => {
+    db.collection(`users/${uid}/tasks`)
+      .doc(key)
+      .update({ status: e.target.value });
   };
 
   const focusTaskField = () => {
@@ -104,30 +94,35 @@ const TaskCard = ({ task }) => {
     setInputFocusState(true);
   };
 
-  const statusOptions = ["todo", "ongoing", "done", "backlog"];
-  const updateTaskStatus = (e) => {
-    db.collection("tasks").doc(key).update({ status: e.target.value });
+  const updateTask = () => {
+    db.collection(`users/${uid}/tasks`).doc(key).update({ focus: focusValue });
+    setInputFocusState(false);
+  };
+
+  const deleteTask = () => {
+    db.collection(`users/${uid}/tasks`).doc(key).delete();
   };
 
   return (
-    <StyledTaskCard id={task.status}>
-      <textarea
-        ref={inputRef}
-        name="focus"
-        rows="10"
-        className="task-focus"
-        value={focusValue}
-        onChange={(e) => setFocusValue(e.target.value)}
-        onFocus={(e) => {
-          e.currentTarget.setSelectionRange(
-            e.currentTarget.value.length,
-            e.currentTarget.value.length
-          );
-          setInputFocusState(true);
-        }}
-      />
-
-      <section className="footer">
+    <StyledTaskCard id={status}>
+      <div className="card-main">
+        <textarea
+          ref={inputRef}
+          name="task-focus"
+          id="task-focus"
+          cols="30"
+          value={focusValue}
+          onChange={(e) => setFocusValue(e.target.value)}
+          onFocus={(e) => {
+            e.currentTarget.setSelectionRange(
+              e.currentTarget.value.length,
+              e.currentTarget.value.length
+            );
+            setInputFocusState(true);
+          }}
+        />
+      </div>
+      <div className="card-footer">
         <select
           name="task-status-options"
           id="task-status-options"
@@ -145,12 +140,12 @@ const TaskCard = ({ task }) => {
 
         <p id="date">{taskCreationDate}</p>
 
-        {task.status === "done" ? (
-          <button className="task-delete-btn">
+        {status === "done" ? (
+          <button id="task-delete-btn">
             <MdDelete onClick={() => deleteTask()} />
           </button>
         ) : (
-          <button className="task-edit-btn">
+          <button id="task-edit-btn">
             {inputFocusState ? (
               <FaCheck id="update-icon" onClick={() => updateTask()} />
             ) : (
@@ -158,7 +153,7 @@ const TaskCard = ({ task }) => {
             )}
           </button>
         )}
-      </section>
+      </div>
     </StyledTaskCard>
   );
 };

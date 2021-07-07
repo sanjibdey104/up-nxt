@@ -1,21 +1,24 @@
 import React from "react";
-import { ThemeContext } from "./context/ThemeContext";
-import { ThemeProvider } from "styled-components";
-import { ThemePreference } from "./styles/themeConfig";
-import { GlobalStyles, lightTheme, darkTheme } from "./styles/globalStyles";
-import Container from "./components/Container";
+import { GlobalStyles } from "./styles/globalStyles";
+import AuthProvider from "./Auth";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import PrivateRoute from "./PrivateRoute";
+import Home from "./components/Home";
+import SignIn from "./components/SignIn";
 
 function App() {
-  const [theme, toggleTheme] = ThemePreference();
-  const themePreference = theme === "light" ? lightTheme : darkTheme;
-
   return (
-    <ThemeContext.Provider value={{ theme: theme, toggleTheme: toggleTheme }}>
-      <ThemeProvider theme={themePreference}>
-        <GlobalStyles />
-        <Container />
-      </ThemeProvider>
-    </ThemeContext.Provider>
+    <>
+      <GlobalStyles />
+      <AuthProvider>
+        <Router>
+          <div className="container">
+            <PrivateRoute exact path="/" component={Home} />
+            <Route exact path="/signin" component={SignIn} />
+          </div>
+        </Router>
+      </AuthProvider>
+    </>
   );
 }
 
