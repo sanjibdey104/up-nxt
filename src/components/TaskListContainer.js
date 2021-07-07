@@ -3,7 +3,7 @@ import BacklogTasks from "./BacklogTasks";
 import TodoTasks from "./TodoTasks";
 import DoneTasks from "./DoneTasks";
 import styled from "styled-components";
-import OngoingTasks from "./OnGoingTasks";
+import OngoingTasks from "./OngoingTasks";
 
 const StyledTaskListContainer = styled.section`
   width: 90%;
