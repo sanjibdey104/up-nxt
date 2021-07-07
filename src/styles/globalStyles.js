@@ -51,6 +51,7 @@ body {
 #loading-indicator {
     width: 100%;
     height: 100%;
+    text-align: center;
 }
 
 input,textarea,button, select {
