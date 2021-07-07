@@ -42,6 +42,7 @@ const StyledTaskListContainer = styled.section`
 const TaskListContainer = ({ tasks }) => {
   const backlogTasks = tasks.filter((task) => task.status === "backlog");
   const todoTasks = tasks.filter((task) => task.status === "todo");
+  const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
   const doneTasks = tasks.filter((task) => task.status === "done");
 
   return (
