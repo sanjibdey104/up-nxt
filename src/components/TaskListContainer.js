@@ -57,11 +57,6 @@ const TaskListContainer = ({ tasks }) => {
         <TodoTasks tasks={todoTasks} />
       </div>
 
-      <div className="task-status ongoing-tasks">
-        <h2 className="status">Ongoing</h2>
-        <OngoingTasks tasks={ongoingTasks} />
-      </div>
-
       <div className="task-status done-tasks">
         <h2 className="status">Done</h2>
         <DoneTasks tasks={doneTasks} />
