@@ -1,7 +1,6 @@
 import React from "react";
 import BacklogTasks from "./BacklogTasks";
 import TodoTasks from "./TodoTasks";
-import OngoingTasks from "./OngoingTasks";
 import DoneTasks from "./DoneTasks";
 import styled from "styled-components";
 
