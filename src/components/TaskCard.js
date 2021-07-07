@@ -60,7 +60,7 @@ const StyledTaskCard = styled.li`
   #task-edit-btn,
   #task-delete-btn {
     background-color: #000;
-    color: #ffffffda;
+    color: #fff;
     border-radius: 50%;
     padding: 0.4rem;
   }
