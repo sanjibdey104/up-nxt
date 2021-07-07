@@ -1,7 +1,7 @@
 import React from "react";
 import TaskCard from "./TaskCard";
 
-const OnGoingTasks = ({ tasks }) => {
+const OngoingTasks = ({ tasks }) => {
   return (
     <ul>
       {tasks.map((task) => (
@@ -11,4 +11,4 @@ const OnGoingTasks = ({ tasks }) => {
   );
 };
 
-export default OnGoingTasks;
+export default OngoingTasks;
