@@ -1,11 +1,11 @@
 import React, { useContext, useRef, useState } from "react";
-import styled from "styled-components";
-import { AuthContext } from "../Auth";
+import firebase from "firebase/app";
 import db from "../firebase";
+import { AuthContext } from "../Auth";
+import { DateContext } from "../context/DateContext";
 import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
-import { DateContext } from "../context/DateContext";
-import firebase from "firebase/app";
+import styled from "styled-components";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -72,10 +72,17 @@ const TaskCard = ({ task }) => {
   const { status, focus, createdAt, key } = task;
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
+  let { currentTimestamp } = useContext(DateContext);
   const inputRef = useRef();
 
-  let { currentTimestamp } = useContext(DateContext);
+  // format the task creation display date
+  const taskDate = new Date(createdAt.toDate());
+  const taskCreationDate = taskDate.toLocaleDateString("en-US", {
+    day: "numeric",
+    month: "short",
+  });
 
+  // logic to automatically move tasks to "backlog" when it crosses 24hour threshold
   const moveToOngoingTasks = () => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
@@ -90,23 +97,15 @@ const TaskCard = ({ task }) => {
     }
   }
 
-  const [focusValue, setFocusValue] = useState(focus);
-  const [inputFocusState, setInputFocusState] = useState(false);
-
-  const taskDate = new Date(createdAt.toDate());
-  const taskCreationDate = taskDate.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "short",
-  });
-
+  // handle task status
   const statusOptions = ["todo", "ongoing", "done", "backlog"];
-
   const updateTaskStatus = (e) => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
       .update({ status: e.target.value });
   };
 
+  // handle status of backlog tasks
   const updateBacklogStatus = (e) => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
@@ -117,16 +116,21 @@ const TaskCard = ({ task }) => {
       });
   };
 
+  // dealing with task input textarea
+  const [focusValue, setFocusValue] = useState(focus);
+  const [inputFocusState, setInputFocusState] = useState(false);
   const focusTaskField = () => {
     inputRef.current.focus();
     setInputFocusState(true);
   };
 
+  // to update a task focus value
   const updateTask = () => {
     db.collection(`users/${uid}/tasks`).doc(key).update({ focus: focusValue });
     setInputFocusState(false);
   };
 
+  // to delete a speicific task
   const deleteTask = () => {
     db.collection(`users/${uid}/tasks`).doc(key).delete();
   };
