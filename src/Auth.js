@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
+import LoadingIndicator from "./components/LoadingIndicator";
 import { auth } from "./firebase";
 
 export const AuthContext = createContext();
@@ -19,7 +20,7 @@ const AuthProvider = ({ children }) => {
   if (pending) {
     return (
       <div className="container">
-        <p id="loading-indicator">loading...</p>
+        <LoadingIndicator />
       </div>
     );
   }
