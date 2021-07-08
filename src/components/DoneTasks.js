@@ -4,9 +4,7 @@ import TaskCard from "./TaskCard";
 const DoneTasks = ({ tasks }) => {
   return (
     <ul>
-      {tasks.map((task) => (
-        <TaskCard key={task.key} task={task} />
-      ))}
+      {tasks && tasks.map((task) => <TaskCard key={task.key} task={task} />)}
     </ul>
   );
 };

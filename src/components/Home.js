@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import { FetchAllTasks } from "../data/AllTasks";
@@ -44,7 +44,7 @@ const Home = () => {
           <p className="message">Good to have you back.</p>
           <p>Now, let's get to work.</p>
         </div>
-        <TaskListContainer tasks={tasks} currentTime={currentTimestamp} />
+        <TaskListContainer tasks={tasks} />
       </Homepage>
     </DateContext.Provider>
   );

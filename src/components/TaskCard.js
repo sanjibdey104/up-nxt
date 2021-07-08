@@ -5,6 +5,7 @@ import db from "../firebase";
 import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import { DateContext } from "../context/DateContext";
+import firebase from "firebase/app";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -73,16 +74,20 @@ const TaskCard = ({ task }) => {
   const { uid } = currentUser;
   const inputRef = useRef();
 
-  const { currentTimestamp } = useContext(DateContext);
-  let secondsPassed = currentTimestamp.seconds - createdAt.seconds;
-  let hoursPassed = Math.floor(secondsPassed / 3600);
+  let { currentTimestamp } = useContext(DateContext);
 
   const moveToOngoingTasks = () => {
-    db.collection(`users/${uid}/tasks`).doc(key).update({ status: "backlog" });
+    db.collection(`users/${uid}/tasks`)
+      .doc(key)
+      .set({ ...task, status: "backlog" });
   };
 
-  if (hoursPassed > 24) {
-    moveToOngoingTasks();
+  if (currentTimestamp) {
+    let seconds = currentTimestamp.seconds - createdAt.seconds;
+    let hoursPassed = Math.floor(seconds / 3600);
+    if (hoursPassed > 20) {
+      moveToOngoingTasks();
+    }
   }
 
   const [focusValue, setFocusValue] = useState(focus);
@@ -100,6 +105,16 @@ const TaskCard = ({ task }) => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
       .update({ status: e.target.value });
+  };
+
+  const updateBacklogStatus = (e) => {
+    db.collection(`users/${uid}/tasks`)
+      .doc(key)
+      .set({
+        ...task,
+        createdAt: firebase.firestore.Timestamp.now(),
+        status: e.target.value,
+      });
   };
 
   const focusTaskField = () => {
@@ -140,7 +155,11 @@ const TaskCard = ({ task }) => {
           name="task-status-options"
           id="task-status-options"
           value={status}
-          onChange={(e) => updateTaskStatus(e)}
+          onChange={
+            status !== "backlog"
+              ? (e) => updateTaskStatus(e)
+              : (e) => updateBacklogStatus(e)
+          }
         >
           {statusOptions.map((option) => {
             return (
