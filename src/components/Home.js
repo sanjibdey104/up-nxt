@@ -1,9 +1,10 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
 import TaskListContainer from "./TaskListContainer";
+import { DateContext } from "../context/DateContext";
 
 const Homepage = styled.section`
   width: 100%;
@@ -27,23 +28,25 @@ const Homepage = styled.section`
 `;
 
 const Home = () => {
-  const tasks = FetchAllTasks();
+  const { tasks, currentTimestamp } = FetchAllTasks();
   const { currentUser } = useContext(AuthContext);
   const { displayName, uid, photoURL } = currentUser;
   const firstName = displayName.split(" ")[0];
 
   return (
-    <Homepage>
-      <Navbar uid={uid} photoSrc={photoURL} />
-      <div className="greet">
-        <p>
-          Hey, <span id="username">{firstName} ☕</span>
-        </p>
-        <p className="message">Good to have you back.</p>
-        <p>Now, let's get to work.</p>
-      </div>
-      <TaskListContainer tasks={tasks} />
-    </Homepage>
+    <DateContext.Provider value={{ currentTimestamp }}>
+      <Homepage>
+        <Navbar uid={uid} photoSrc={photoURL} />
+        <div className="greet">
+          <p>
+            Hey, <span id="username">{firstName} ☕</span>
+          </p>
+          <p className="message">Good to have you back.</p>
+          <p>Now, let's get to work.</p>
+        </div>
+        <TaskListContainer tasks={tasks} currentTime={currentTimestamp} />
+      </Homepage>
+    </DateContext.Provider>
   );
 };
 

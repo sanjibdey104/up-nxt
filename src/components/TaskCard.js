@@ -4,6 +4,7 @@ import { AuthContext } from "../Auth";
 import db from "../firebase";
 import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+import { DateContext } from "../context/DateContext";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -71,6 +72,18 @@ const TaskCard = ({ task }) => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const inputRef = useRef();
+
+  const { currentTimestamp } = useContext(DateContext);
+  let secondsPassed = currentTimestamp.seconds - createdAt.seconds;
+  let hoursPassed = Math.floor(secondsPassed / 3600);
+
+  const moveToOngoingTasks = () => {
+    db.collection(`users/${uid}/tasks`).doc(key).update({ status: "backlog" });
+  };
+
+  if (hoursPassed > 24) {
+    moveToOngoingTasks();
+  }
 
   const [focusValue, setFocusValue] = useState(focus);
   const [inputFocusState, setInputFocusState] = useState(false);

@@ -1,11 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth";
 import db from "../firebase";
+import firebase from "firebase/app";
 
 export const FetchAllTasks = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [tasks, setTasks] = useState([]);
+  const [currentTimestamp, setCurrentTimestamp] = useState(null);
 
   useEffect(() => {
     const unsubscribe = db
@@ -16,9 +18,10 @@ export const FetchAllTasks = () => {
           key: doc.id,
         }));
         setTasks(arr);
+        setCurrentTimestamp(firebase.firestore.Timestamp.now());
       });
     return () => unsubscribe();
   }, [uid]);
 
-  return tasks;
+  return { tasks, currentTimestamp };
 };
