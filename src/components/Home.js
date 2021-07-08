@@ -5,6 +5,7 @@ import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
 import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
+import AppInfo from "./AppInfo";
 
 const Homepage = styled.section`
   width: 100%;
@@ -23,7 +24,6 @@ const Homepage = styled.section`
 
   .greet {
     margin-top: 8rem;
-    margin-bottom: 2rem;
   }
 `;
 
@@ -44,6 +44,7 @@ const Home = () => {
           <p className="message">Good to have you back.</p>
           <p>Now, let's get to work.</p>
         </div>
+        <AppInfo />
         <TaskListContainer tasks={tasks} />
       </Homepage>
     </DateContext.Provider>
