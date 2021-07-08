@@ -31,7 +31,7 @@ const StyledInfoSection = styled.section`
     font-size: 0.85rem;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 200ms ease-in-out;
+    transition: max-height 300ms ease-in-out;
 
     &#open {
       max-height: 20rem;
