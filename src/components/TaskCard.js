@@ -92,7 +92,7 @@ const TaskCard = ({ task }) => {
   if (currentTimestamp) {
     let seconds = currentTimestamp.seconds - createdAt.seconds;
     let hoursPassed = Math.floor(seconds / 3600);
-    if (hoursPassed > 20) {
+    if (status === "todo" && hoursPassed > 24) {
       moveToOngoingTasks();
     }
   }

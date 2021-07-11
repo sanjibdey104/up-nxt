@@ -64,13 +64,14 @@ const AppInfo = () => {
           ✅
         </li>
         <li>update the task status as you progress 🐢</li>
-        <li>tasks are automatically moved to "Backlog" after 24 hours 🧐</li>
+        <li></li>
         <li>
           "Backlog" task status, when changed, gets updated with current date 📅
         </li>
         <li>
-          to make you feel more responsible, a task can only be deleted once
-          moved under "Done" 😎
+          to make you feel more responsible: <br />
+          - "Todo" tasks are automatically moved to "Backlog" after 24 hours
+          <br />- A task can only be deleted once moved under "Done" 😎
         </li>
       </ul>
     </StyledInfoSection>
