@@ -1,9 +1,6 @@
 import React from "react";
-import BacklogTasks from "./BacklogTasks";
-import TodoTasks from "./TodoTasks";
-import DoneTasks from "./DoneTasks";
 import styled from "styled-components";
-import OngoingTasks from "./OngoingTasks";
+import TaskList from "./TaskList";
 
 const StyledTaskListContainer = styled.section`
   width: 90%;
@@ -40,32 +37,16 @@ const StyledTaskListContainer = styled.section`
 `;
 
 const TaskListContainer = ({ tasks }) => {
-  const backlogTasks = tasks.filter((task) => task.status === "backlog");
-  const todoTasks = tasks.filter((task) => task.status === "todo");
-  const ongoingTasks = tasks.filter((task) => task.status === "ongoing");
-  const doneTasks = tasks.filter((task) => task.status === "done");
+  const taskStatus = ["backlog", "todo", "ongoing", "done"];
 
   return (
     <StyledTaskListContainer>
-      <div className="task-status backlog-tasks">
-        <h2 className="status">Backlog</h2>
-        <BacklogTasks tasks={backlogTasks} />
-      </div>
-
-      <div className="task-status todo-tasks">
-        <h2 className="status">Todo</h2>
-        <TodoTasks tasks={todoTasks} />
-      </div>
-
-      <div className="task-status ongoing-tasks">
-        <h2 className="status">Ongoing</h2>
-        <OngoingTasks tasks={ongoingTasks} />
-      </div>
-
-      <div className="task-status done-tasks">
-        <h2 className="status">Done</h2>
-        <DoneTasks tasks={doneTasks} />
-      </div>
+      {taskStatus.map((status) => (
+        <div className="task-status" key={status}>
+          <h2 className="status">{status}</h2>
+          <TaskList tasks={tasks.filter((task) => task.status === status)} />
+        </div>
+      ))}
     </StyledTaskListContainer>
   );
 };
