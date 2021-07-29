@@ -20,12 +20,10 @@ html {
 body {
     width: 100%;
     height: 100vh;
+    line-height: 1.4;
     background-color: #fff;
     color: #000;
-    line-height: 1.4;
-
-    font-family: 'Solway', serif;
-    font-family: 'Space Mono', monospace;
+    font-family: 'Montserrat', sans-serif;
 }
 
 #root {
@@ -34,14 +32,14 @@ body {
 }
 
 .container {
-    width: 85%;
-    margin: 0 auto;
-    min-height: 100%;
-    padding: 2rem 0;
+    width: 100%;
+    height: 100%;
+    /* padding: 1rem 0; */
+    /* background-color: #010103; */
 
-    @media (max-width: 600px) {
+    /* @media (max-width: 600px) {
         width: 95%;
-    }
+    } */
 
     display: flex;
     justify-content: center;
