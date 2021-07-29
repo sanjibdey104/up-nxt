@@ -4,27 +4,21 @@ import db, { auth } from "../firebase";
 import { FaCaretDown } from "react-icons/fa";
 import { FiPlusCircle } from "react-icons/fi";
 import firebase from "firebase/app";
+import Logo from "./Logo";
 
 const StyledNavbar = styled.nav`
   width: 90%;
   margin: 0 auto;
   height: 3rem;
-  padding: 3rem 1rem;
-  background-color: #ffffffda;
+  padding: 2rem 0;
 
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  position: fixed;
-  top: 0;
+  position: relative;
 
   #logo {
-    font-size: 0.9rem;
-    padding: 0.4rem;
-    border-radius: 0.5rem;
-    background-color: #e2cd6d;
-    box-shadow: 2px 2px #000;
+    position: static;
   }
 
   .task-input-form {
@@ -64,17 +58,20 @@ const StyledNavbar = styled.nav`
   }
 
   .profile-info {
-    width: 5.75rem;
-    height: 3.2rem;
+    width: 5rem;
+    height: 3rem;
     border-radius: 0.75rem;
     box-shadow: var(--box-shadow);
+
+    border: 1px solid #efefef;
+    box-shadow: 3px 3px #efa135;
 
     display: flex;
     align-items: center;
     justify-content: space-around;
 
     position: relative;
-    background-color: #fff;
+    background-color: #f8f9fa;
 
     #toggle-icon {
       font-size: 1.2rem;
@@ -83,33 +80,28 @@ const StyledNavbar = styled.nav`
   }
 
   #profile-photo {
-    width: 2.5rem;
+    width: 2.3rem;
     border-radius: 50%;
   }
 
   #sign-out-btn {
     width: 5rem;
-    padding: 0.3rem;
+    padding: 0.5rem;
     border-radius: 0.5rem;
 
-    background-color: #ff6347da;
-    border: 1px solid black;
-    box-shadow: 2px 2px #000;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: #efa135;
+    box-shadow: 5px 5px #000;
+    transition: all 200ms ease-in-out;
 
-    position: absolute;
-    bottom: -2.5rem;
-    z-index: -1;
-    transform: translateY(-150%);
-    transition: transform 200ms ease-in-out;
-
-    &.open {
-      transform: translateY(0);
+    &:hover {
+      box-shadow: 3px 3px #000;
     }
   }
 `;
 
-const Navbar = ({ uid, photoSrc }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = ({ uid }) => {
   const [task, setTask] = useState("");
 
   const createNewtask = (e) => {
@@ -125,9 +117,9 @@ const Navbar = ({ uid, photoSrc }) => {
 
   return (
     <StyledNavbar>
-      <p id="logo">UpNxt</p>
+      <Logo />
 
-      <form className="task-input-form" onSubmit={(e) => createNewtask(e)}>
+      {/* <form className="task-input-form" onSubmit={(e) => createNewtask(e)}>
         <input
           type="text"
           id="task-input"
@@ -138,21 +130,21 @@ const Navbar = ({ uid, photoSrc }) => {
         <button type="submit" id="task-submit-btn">
           <FiPlusCircle />
         </button>
-      </form>
+      </form> */}
 
-      <section className="profile-info">
+      {/* <section className="profile-info">
         <img src={photoSrc} alt="" id="profile-photo" />
 
         <FaCaretDown id="toggle-icon" onClick={() => setIsOpen(!isOpen)} />
 
-        <button
-          id="sign-out-btn"
-          className={isOpen ? "open" : ""}
-          onClick={() => auth.signOut()}
-        >
-          Sign-out
-        </button>
-      </section>
+      </section> */}
+      <button
+        id="sign-out-btn"
+        // className={isOpen ? "open" : ""}
+        onClick={() => auth.signOut()}
+      >
+        Sign-out
+      </button>
     </StyledNavbar>
   );
 };

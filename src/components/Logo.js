@@ -27,7 +27,7 @@ const StyledLogo = styled.div`
 `;
 
 const Logo = () => {
-  return <StyledLogo>UpNxt</StyledLogo>;
+  return <StyledLogo id="logo">UpNxt</StyledLogo>;
 };
 
 export default Logo;
