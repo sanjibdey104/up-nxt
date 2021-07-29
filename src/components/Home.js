@@ -1,14 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import styled from "styled-components";
-import { AuthContext } from "../Auth";
 import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
 import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
 import AppInfo from "./AppInfo";
+import GreetUser from "./GreetUser";
 
 const Homepage = styled.section`
-  width: 100%;
+  width: 95%;
+  margin: 0 auto;
   height: 100%;
   position: relative;
 
@@ -16,34 +17,17 @@ const Homepage = styled.section`
   flex-direction: column;
   align-items: center;
   gap: 3rem;
-
-  #username {
-    font-weight: bolder;
-    font-size: 1.1rem;
-  }
-
-  .greet {
-    margin-top: 8rem;
-  }
+  /* padding: 0 1rem; */
 `;
 
 const Home = () => {
   const { tasks, currentTimestamp } = FetchAllTasks();
-  const { currentUser } = useContext(AuthContext);
-  const { displayName, uid, photoURL } = currentUser;
-  const firstName = displayName.split(" ")[0];
 
   return (
     <DateContext.Provider value={{ currentTimestamp }}>
       <Homepage>
-        <Navbar uid={uid} photoSrc={photoURL} />
-        <div className="greet">
-          <p>
-            Hey, <span id="username">{firstName} ☕</span>
-          </p>
-          <p className="message">Good to have you back.</p>
-          <p>Now, let's get to work.</p>
-        </div>
+        <Navbar />
+        <GreetUser taskCount={tasks.length} />
         <AppInfo />
         <TaskListContainer tasks={tasks} />
       </Homepage>

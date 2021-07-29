@@ -57,33 +57,6 @@ const StyledNavbar = styled.nav`
     font-size: 1.5rem;
   }
 
-  .profile-info {
-    width: 5rem;
-    height: 3rem;
-    border-radius: 0.75rem;
-    box-shadow: var(--box-shadow);
-
-    border: 1px solid #efefef;
-    box-shadow: 3px 3px #efa135;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-
-    position: relative;
-    background-color: #f8f9fa;
-
-    #toggle-icon {
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-  }
-
-  #profile-photo {
-    width: 2.3rem;
-    border-radius: 50%;
-  }
-
   #sign-out-btn {
     width: 5rem;
     padding: 0.5rem;
@@ -132,12 +105,6 @@ const Navbar = ({ uid }) => {
         </button>
       </form> */}
 
-      {/* <section className="profile-info">
-        <img src={photoSrc} alt="" id="profile-photo" />
-
-        <FaCaretDown id="toggle-icon" onClick={() => setIsOpen(!isOpen)} />
-
-      </section> */}
       <button
         id="sign-out-btn"
         // className={isOpen ? "open" : ""}
