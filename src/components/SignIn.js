@@ -10,11 +10,24 @@ const SignInPage = styled.section`
   height: 100%;
   width: 100%;
 
-  display: grid;
-  place-content: center;
-  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
+
+  position: relative;
   background-color: #efefef;
+
+  h2 {
+    font-size: 1.85rem;
+  }
+
+  p {
+    width: 12rem;
+    text-align: center;
+    font-weight: 500;
+  }
 
   #pattern-top {
     position: absolute;
@@ -40,11 +53,19 @@ const SignInPage = styled.section`
 
 const SignInBtn = styled.button`
   width: 12rem;
-  padding: 0.3rem;
+  padding: 0.75rem 0.5rem;
   border-radius: 0.5rem;
+  margin-top: 2rem;
+  font-weight: 500;
 
   background-color: #121212;
   color: #f2f2f2;
+  box-shadow: 5px 5px #efa135;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    box-shadow: 3px 3px #efa135;
+  }
 `;
 
 const SignIn = () => {
@@ -67,8 +88,8 @@ const SignIn = () => {
       <div id="pattern-top"></div>
       <div id="pattern-bottom"></div>
       <h2>Welcome to UpNxt</h2>
-      <p>track your tasks</p>
-      <p>...and get things done!!!</p>
+      <p>daily chores, personal projects or office tasks</p>
+      <p>keep track and get things done</p>
       <SignInBtn onClick={() => handleSignIn()}>Sign-in with Google</SignInBtn>
     </SignInPage>
   );

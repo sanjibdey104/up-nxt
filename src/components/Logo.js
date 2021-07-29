@@ -11,6 +11,7 @@ const StyledLogo = styled.div`
   font-weight: 500;
   color: #f3f3f3;
   background-color: #000;
+  box-shadow: 5px 5px #efa135;
 
   display: grid;
   place-content: center;
@@ -18,6 +19,11 @@ const StyledLogo = styled.div`
   position: absolute;
   top: 1rem;
   left: 1rem;
+  transition: all 200ms ease-in-out;
+
+  &:hover {
+    box-shadow: 2px 2px #efa135;
+  }
 `;
 
 const Logo = () => {
