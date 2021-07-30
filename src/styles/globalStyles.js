@@ -39,6 +39,7 @@ body {
 
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #loading-indicator {
