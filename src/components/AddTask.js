@@ -56,7 +56,7 @@ const AddTask = () => {
       status: "todo",
       createdAt: firebase.firestore.Timestamp.now(),
     };
-    db.collection(`users/${uid}/tasks`).add(newTask);
+    db.collection(`/users/${uid}/tasks`).add(newTask);
     setTask("");
   };
 
