@@ -12,12 +12,14 @@ const StyledTaskCard = styled.li`
   flex-direction: column;
   justify-content: space-between;
   gap: 0.5rem;
+  flex-shrink: 0;
 
-  height: 8rem;
+  min-height: 10rem;
   width: 18rem;
-  padding: 0.5rem;
-  box-shadow: 3px 3px #000;
-  border-radius: 0.5rem;
+  padding: 0.85rem;
+  border-radius: 0.85rem;
+  background-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   &#todo {
     background-color: #abc4ff;
@@ -37,7 +39,7 @@ const StyledTaskCard = styled.li`
     border: 0;
     width: 100%;
     resize: none;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
   }
 
   .card-footer {

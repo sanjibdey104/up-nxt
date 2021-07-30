@@ -23,45 +23,33 @@ const Homepage = styled.section`
   gap: 4rem;
 `;
 
-const Main = styled.main`
-  width: 100%;
+const MainSection = styled.main`
+  width: 80%;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  align-items: center;
   gap: 3rem;
-  border: 1px solid blue;
 
-  .section-one,
-  .section-two {
+  @media (max-width: 600px) {
     width: 100%;
-    border: 1px solid red;
+  }
+
+  & > * {
+    max-width: 100%;
+  }
+
+  .tasks-repo {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     gap: 3rem;
-  }
 
-  .section-two {
-    height: 20rem;
-    padding: 1rem 0;
     & > * {
       flex-grow: 1;
-      height: 100%;
     }
   }
-
-  /* .section-one {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: flex-start;
-  }
-
-  .section-two {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  } */
 `;
 
 const Home = () => {
@@ -71,16 +59,12 @@ const Home = () => {
     <DateContext.Provider value={{ currentTimestamp }}>
       <Homepage>
         <Navbar />
-        <Main>
-          <section className="section-one">
-            <GreetUser taskCount={tasks.length} />
-            <AddTask />
-          </section>
-          <section className="section-two">
-            <TodayTasks tasks={tasks} />
-            <TaskListContainer tasks={tasks} />
-          </section>
-        </Main>
+        <MainSection>
+          <GreetUser taskCount={tasks.length} />
+          <AddTask />
+          <TodayTasks tasks={tasks} />
+          <TaskListContainer tasks={tasks} />
+        </MainSection>
       </Homepage>
     </DateContext.Provider>
   );

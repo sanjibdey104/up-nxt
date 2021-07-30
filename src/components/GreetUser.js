@@ -3,12 +3,10 @@ import styled from "styled-components";
 import { AuthContext } from "../Auth";
 
 const StyledGreet = styled.section`
-  width: 100%;
-  height: fit-content;
-
   display: flex;
   flex-direction: column;
   font-size: 1.1rem;
+  margin-bottom: 2rem;
 
   #profile-photo {
     width: 3rem;
@@ -33,7 +31,7 @@ const GreetUser = ({ taskCount }) => {
       <p id="username">Hey, {firstName} ☕</p>
       <p>Good to have you back.</p>
       <p id="task-count">
-        You've got <span>{taskCount}</span> tasks today
+        You've got <span>{taskCount}</span> tasks today 📝
       </p>
     </StyledGreet>
   );

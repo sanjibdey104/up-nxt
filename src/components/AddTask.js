@@ -6,15 +6,17 @@ import db from "../firebase";
 
 const StyledTaskForm = styled.form`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
-  padding: 0.2rem 0.75rem;
-  border-radius: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
 
   #task-input {
-    padding: 0.3rem 0.75rem;
-    font-size: 1rem;
-    flex-grow: 1;
+    width: 20rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 1.1rem;
+
     border: 1px solid black;
     background-color: inherit;
     border-radius: 0.5rem;

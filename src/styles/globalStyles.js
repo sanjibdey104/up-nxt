@@ -2,9 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
-/* :root {
-    --box-shadow: 0 0 3px #d5d5d5, 3px 3px 0 rgba(0,0,0,0.3);
-} */
+:root {
+    --accent-color: #efa135da;
+}
 
 html {
     box-sizing: border-box;
@@ -35,6 +35,7 @@ body {
     width: 100%;
     min-height: 100%;
     background-color: #efefef;
+    padding-bottom: 2rem;
 
     display: flex;
     justify-content: center;

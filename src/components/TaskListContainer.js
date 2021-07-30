@@ -3,35 +3,15 @@ import styled from "styled-components";
 import TaskList from "./TaskList";
 
 const StyledTaskListContainer = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-
-  .task-status {
-    min-height: 3.5rem;
-    padding: 0.75rem;
-    border-radius: 0.5rem;
-    background-color: #e9ecef;
-
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .status {
-    font-size: 1.3rem;
-  }
-
-  .task-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
+  gap: 2rem;
 
   .task-status-list {
     height: 2rem;
     width: 100%;
-    padding-bottom: 1rem;
+    margin: 0 auto;
 
     display: flex;
     justify-content: space-between;
@@ -46,7 +26,6 @@ const StyledTaskListContainer = styled.section`
     }
 
     li.active {
-      /* color: #6c757d; */
       background-color: #efa135;
     }
   }
@@ -66,6 +45,7 @@ const TaskListContainer = ({ tasks }) => {
 
   return (
     <StyledTaskListContainer>
+      <h2>All the Tasks</h2>
       <ul className="task-status-list">
         {taskStatus.map((status, index) => (
           <li
