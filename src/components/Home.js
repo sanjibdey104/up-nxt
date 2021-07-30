@@ -10,7 +10,6 @@ import AddTask from "./AddTask";
 const Homepage = styled.section`
   width: 75%;
   margin: 0 auto;
-  height: 100%;
   position: relative;
 
   @media (max-width: 600px) {
@@ -27,7 +26,7 @@ const Main = styled.main`
   display: flex;
   gap: 1rem;
 
-  @media (max-width: 768px) {
+  @media (max-width: 800px) {
     flex-direction: column-reverse;
     gap: 3rem;
   }
