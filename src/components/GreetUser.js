@@ -5,14 +5,9 @@ import { AuthContext } from "../Auth";
 const StyledGreet = styled.section`
   width: 100%;
   height: 15rem;
-  margin-right: auto;
-  padding: 0 1rem;
-  border: 1px solid black;
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
   font-size: 1.1rem;
 
   #profile-photo {
@@ -29,7 +24,7 @@ const StyledGreet = styled.section`
 
 const GreetUser = ({ taskCount }) => {
   const { currentUser } = useContext(AuthContext);
-  const { displayName, uid, photoURL } = currentUser;
+  const { displayName, photoURL } = currentUser;
   const firstName = displayName.split(" ")[0];
 
   return (

@@ -4,8 +4,6 @@ import TaskList from "./TaskList";
 
 const StyledTaskListContainer = styled.section`
   width: 100%;
-  border: 1px solid black;
-
   display: flex;
   flex-direction: column;
   gap: 3rem;

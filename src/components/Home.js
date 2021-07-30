@@ -4,12 +4,11 @@ import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
 import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
-import AppInfo from "./AppInfo";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
 
 const Homepage = styled.section`
-  width: 80%;
+  width: 75%;
   margin: 0 auto;
   height: 100%;
   position: relative;
@@ -21,16 +20,21 @@ const Homepage = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
-
-  border: 1px solid blue;
+  gap: 5rem;
 `;
 
 const Main = styled.main`
   display: flex;
   gap: 1rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(300px, 1fr));
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+    gap: 3rem;
+  }
+
+  & > * {
+    flex: 1;
+  }
 
   .section-one {
     display: flex;
@@ -51,6 +55,7 @@ const Home = () => {
           <section className="section-one">
             <GreetUser taskCount={tasks.length} />
             {/* <AppInfo /> */}
+            <h2>My Tasks</h2>
             <TaskListContainer tasks={tasks} />
           </section>
           <section className="section-two">
