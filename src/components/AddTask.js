@@ -3,17 +3,17 @@ import firebase from "firebase/app";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import db from "../firebase";
+import SubTasks from "./SubTasks";
 
 const StyledTaskForm = styled.form`
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
-  flex-wrap: wrap;
   margin-bottom: 2rem;
 
   #task-input {
-    width: 20rem;
+    width: 22rem;
     padding: 0.5rem 0.75rem;
     font-size: 1.1rem;
 
@@ -26,13 +26,29 @@ const StyledTaskForm = styled.form`
     }
   }
 
+  .subtasks-input-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    max-height: 0;
+    overflow: hidden;
+    transition: all 200ms ease-in-out;
+
+    &#show {
+      max-height: 10rem;
+    }
+  }
+
   #task-submit-btn {
-    width: 7rem;
+    width: 10rem;
     font-size: 0.75rem;
     border-radius: 0.5rem;
     background-color: #121212;
     color: #f2f2f2;
-    padding: 0.75rem;
+    padding: 0.5rem;
     font-weight: bolder;
 
     display: flex;
@@ -49,17 +65,17 @@ const StyledTaskForm = styled.form`
 const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
-  const [task, setTask] = useState("");
+  const [taskInput, setTaskInput] = useState("");
 
   const createNewtask = (e) => {
     e.preventDefault();
     const newTask = {
-      focus: task,
+      focus: taskInput,
       status: "todo",
       createdAt: firebase.firestore.Timestamp.now(),
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
-    setTask("");
+    setTaskInput("");
   };
 
   return (
@@ -67,10 +83,19 @@ const AddTask = () => {
       <input
         type="text"
         id="task-input"
-        value={task}
-        onChange={(e) => setTask(e.target.value)}
+        value={taskInput}
+        onChange={(e) => setTaskInput(e.target.value)}
         placeholder="enter a new task..."
       />
+
+      <div
+        className="subtasks-input-section"
+        id={taskInput.length ? "show" : null}
+      >
+        <p>got some sub tasks ?</p>
+        <SubTasks />
+      </div>
+
       <button type="submit" id="task-submit-btn">
         <span>+</span> Add Task
       </button>
