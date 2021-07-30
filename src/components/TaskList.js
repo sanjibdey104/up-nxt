@@ -4,7 +4,6 @@ import TaskCard from "./TaskCard";
 
 const StyledTaskList = styled.ul`
   width: 100%;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   align-items: center;

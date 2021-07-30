@@ -67,7 +67,7 @@ const AddTask = () => {
         id="task-input"
         value={task}
         onChange={(e) => setTask(e.target.value)}
-        placeholder="add a new task..."
+        placeholder="enter a new task..."
       />
       <button type="submit" id="task-submit-btn">
         <span>+</span> Add Task

@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import React from "react";
 import styled from "styled-components";
 import { auth } from "../firebase";
@@ -32,12 +33,20 @@ const StyledNavbar = styled.nav`
       box-shadow: 3px 3px #000;
     }
   }
+
+  .date {
+    font-weight: 500;
+  }
 `;
 
 const Navbar = () => {
+  const dt = new Date();
+  const today = dayjs(dt).format("MMMM ddd, YYYY");
+
   return (
     <StyledNavbar>
       <Logo />
+      <p className="date">{today}</p>
       <button id="sign-out-btn" onClick={() => auth.signOut()}>
         Sign-out
       </button>

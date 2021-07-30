@@ -6,6 +6,8 @@ import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
+import dayjs from "dayjs";
+import TodayTasks from "./TodayTasks";
 
 const Homepage = styled.section`
   width: 75%;
@@ -23,13 +25,14 @@ const Homepage = styled.section`
 `;
 
 const Main = styled.main`
+  width: 100%;
   display: flex;
-  gap: 1rem;
+  flex-wrap: wrap;
+  gap: 3rem;
 
-  @media (max-width: 800px) {
+  /* @media (max-width: 800px) {
     flex-direction: column-reverse;
-    gap: 3rem;
-  }
+  } */
 
   & > * {
     flex: 1;
@@ -40,6 +43,12 @@ const Main = styled.main`
     flex-direction: column;
     gap: 2rem;
     align-items: flex-start;
+  }
+
+  .section-two {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 `;
 
@@ -53,18 +62,11 @@ const Home = () => {
         <Main>
           <section className="section-one">
             <GreetUser taskCount={tasks.length} />
-            {/* <AppInfo /> */}
-            <h2>My Tasks</h2>
-            <TaskListContainer tasks={tasks} />
+            <TodayTasks tasks={tasks} />
           </section>
           <section className="section-two">
             <AddTask />
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-              Distinctio autem laboriosam ex eos odit, sequi repudiandae porro
-              eum unde nostrum quisquam commodi assumenda voluptatibus minus
-              suscipit aliquam natus necessitatibus! Suscipit.
-            </p>
+            <TaskListContainer tasks={tasks} />
           </section>
         </Main>
       </Homepage>

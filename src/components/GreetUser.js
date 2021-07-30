@@ -4,7 +4,7 @@ import { AuthContext } from "../Auth";
 
 const StyledGreet = styled.section`
   width: 100%;
-  height: 15rem;
+  height: fit-content;
 
   display: flex;
   flex-direction: column;
