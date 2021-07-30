@@ -16,9 +16,11 @@ const StyledTaskForm = styled.form`
     width: 22rem;
     padding: 0.5rem 0.75rem;
     font-size: 1.1rem;
+    margin-bottom: 1rem;
 
-    border: 1px solid black;
-    background-color: inherit;
+    border: 0;
+    -moz-outline-radius: 0.5rem;
+    background-color: var(--accent-color);
     border-radius: 0.5rem;
 
     &::placeholder {
@@ -66,16 +68,19 @@ const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [taskInput, setTaskInput] = useState("");
+  const [subtaskInputList, setSubtaskInputList] = useState([]);
 
   const createNewtask = (e) => {
     e.preventDefault();
     const newTask = {
       focus: taskInput,
+      subTasks: subtaskInputList,
       status: "todo",
       createdAt: firebase.firestore.Timestamp.now(),
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
     setTaskInput("");
+    setSubtaskInputList([]);
   };
 
   return (
@@ -93,12 +98,17 @@ const AddTask = () => {
         id={taskInput.length ? "show" : null}
       >
         <p>got some sub tasks ?</p>
-        <SubTasks />
+        <SubTasks
+          subtaskInputList={subtaskInputList}
+          setSubtaskInputList={setSubtaskInputList}
+        />
       </div>
 
       <button type="submit" id="task-submit-btn">
         <span>+</span> Add Task
       </button>
+
+      {/* <SubTasks /> */}
     </StyledTaskForm>
   );
 };
