@@ -6,7 +6,6 @@ import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
-import dayjs from "dayjs";
 import TodayTasks from "./TodayTasks";
 
 const Homepage = styled.section`
@@ -21,24 +20,37 @@ const Homepage = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5rem;
+  gap: 4rem;
 `;
 
 const Main = styled.main`
   width: 100%;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 3rem;
+  border: 1px solid blue;
 
-  /* @media (max-width: 800px) {
-    flex-direction: column-reverse;
-  } */
-
-  & > * {
-    flex: 1;
+  .section-one,
+  .section-two {
+    width: 100%;
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
   }
 
-  .section-one {
+  .section-two {
+    height: 20rem;
+    padding: 1rem 0;
+    & > * {
+      flex-grow: 1;
+      height: 100%;
+    }
+  }
+
+  /* .section-one {
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -49,7 +61,7 @@ const Main = styled.main`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-  }
+  } */
 `;
 
 const Home = () => {
@@ -62,10 +74,10 @@ const Home = () => {
         <Main>
           <section className="section-one">
             <GreetUser taskCount={tasks.length} />
-            <TodayTasks tasks={tasks} />
+            <AddTask />
           </section>
           <section className="section-two">
-            <AddTask />
+            <TodayTasks tasks={tasks} />
             <TaskListContainer tasks={tasks} />
           </section>
         </Main>

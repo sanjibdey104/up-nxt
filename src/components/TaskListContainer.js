@@ -3,7 +3,6 @@ import styled from "styled-components";
 import TaskList from "./TaskList";
 
 const StyledTaskListContainer = styled.section`
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -28,17 +27,6 @@ const StyledTaskListContainer = styled.section`
     flex-direction: column;
     gap: 0.5rem;
   }
-
-  /* ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-  }
-
-  h2 {
-    text-align: center;
-  } */
 
   .task-status-list {
     height: 2rem;
