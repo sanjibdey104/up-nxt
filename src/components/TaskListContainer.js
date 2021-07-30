@@ -3,11 +3,12 @@ import styled from "styled-components";
 import TaskList from "./TaskList";
 
 const StyledTaskListContainer = styled.section`
-  width: 90%;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  width: 100%;
+  border: 1px solid black;
+
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
-  margin-bottom: 5rem;
 
   .task-status {
     min-height: 3.5rem;

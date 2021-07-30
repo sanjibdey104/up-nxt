@@ -7,6 +7,7 @@ const StyledGreet = styled.section`
   height: 15rem;
   margin-right: auto;
   padding: 0 1rem;
+  border: 1px solid black;
 
   display: flex;
   flex-direction: column;
@@ -37,7 +38,7 @@ const GreetUser = ({ taskCount }) => {
       <p id="username">Hey, {firstName} ☕</p>
       <p>Good to have you back.</p>
       <p id="task-count">
-        You've got <span>{taskCount}</span> today
+        You've got <span>{taskCount}</span> tasks today
       </p>
     </StyledGreet>
   );
