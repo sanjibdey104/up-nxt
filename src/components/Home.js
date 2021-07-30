@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
-import TaskListContainer from "./TaskListContainer";
 import { DateContext } from "../context/DateContext";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
 import TodayTasks from "./TodayTasks";
+import AllTasks from "./AllTasks";
 
 const Homepage = styled.section`
   width: 75%;
@@ -63,7 +63,7 @@ const Home = () => {
           <GreetUser taskCount={tasks.length} />
           <AddTask />
           <TodayTasks tasks={tasks} />
-          <TaskListContainer tasks={tasks} />
+          <AllTasks tasks={tasks} />
         </MainSection>
       </Homepage>
     </DateContext.Provider>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import TaskList from "./TaskList";
 
-const StyledTaskListContainer = styled.section`
+const AllTasksSection = styled.section`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ const StyledTaskListContainer = styled.section`
   }
 `;
 
-const TaskListContainer = ({ tasks }) => {
+const AllTasks = ({ tasks }) => {
   const [indexValue, setIndexValue] = useState(0);
   const [activeStatus, setActiveStatus] = useState("todo");
   const taskStatus = ["todo", "backlog", "ongoing", "done"];
@@ -44,7 +44,7 @@ const TaskListContainer = ({ tasks }) => {
   const filteredTasks = tasks.filter((task) => task.status === activeStatus);
 
   return (
-    <StyledTaskListContainer>
+    <AllTasksSection>
       <h2>All the Tasks</h2>
       <ul className="task-status-list">
         {taskStatus.map((status, index) => (
@@ -58,8 +58,8 @@ const TaskListContainer = ({ tasks }) => {
         ))}
       </ul>
       <TaskList tasks={filteredTasks} />
-    </StyledTaskListContainer>
+    </AllTasksSection>
   );
 };
 
-export default TaskListContainer;
+export default AllTasks;
