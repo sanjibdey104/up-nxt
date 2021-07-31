@@ -77,7 +77,7 @@ const SubtaskInputs = (props) => {
               onChange={(e) => handleSubtaskInput(e, index)}
             />
             <button
-              id="add-subtask-btn"
+              id="remove-subtask-btn"
               type="button"
               onClick={() => removeSubtaskInput(index)}
             >
