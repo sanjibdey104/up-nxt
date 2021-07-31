@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { MdAddCircle } from "react-icons/md";
+import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
+import { v4 as uuid } from "uuid";
 
 const StyledSubtaskInputs = styled.ul`
   width: 100%;
@@ -14,11 +15,11 @@ const StyledSubtaskInputs = styled.ul`
   .subtask-manager {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
   }
 
   #subtask-input {
-    width: 18rem;
+    width: 16rem;
     padding: 0.2rem 0.3rem;
     border: 0;
     outline: 0;
@@ -54,31 +55,43 @@ const SubtaskInputs = (props) => {
   };
 
   const addNewSubtaskInput = () => {
-    setSubtaskInputs([...subtaskInputs, { subtask: "" }]);
+    setSubtaskInputs([...subtaskInputs, { id: uuid(), subtask: "" }]);
+  };
+
+  const removeSubtaskInput = (index) => {
+    let updatedSubtaskInputs = [...subtaskInputs];
+    updatedSubtaskInputs.splice(index, 1);
+    setSubtaskInputs(updatedSubtaskInputs);
   };
 
   return (
     <StyledSubtaskInputs>
-      {subtaskInputs
-        ? subtaskInputs.map((subtaskInput, index) => (
-            <div className="subtask-manager" key={index}>
-              <input
-                type="text"
-                id="subtask-input"
-                placeholder="+ subtask"
-                value={subtaskInput.subtask}
-                onChange={(e) => handleSubtaskInput(e, index)}
-              />
-              <button
-                id="add-subtask-btn"
-                type="button"
-                onClick={() => addNewSubtaskInput()}
-              >
-                <MdAddCircle />
-              </button>
-            </div>
-          ))
-        : null}
+      {subtaskInputs &&
+        subtaskInputs.map((subtaskInput, index) => (
+          <div className="subtask-manager" key={subtaskInput.id}>
+            <input
+              type="text"
+              id="subtask-input"
+              placeholder="+ subtask"
+              value={subtaskInput.subtask}
+              onChange={(e) => handleSubtaskInput(e, index)}
+            />
+            <button
+              id="add-subtask-btn"
+              type="button"
+              onClick={() => removeSubtaskInput(index)}
+            >
+              <MdRemoveCircle />
+            </button>
+            <button
+              id="add-subtask-btn"
+              type="button"
+              onClick={() => addNewSubtaskInput()}
+            >
+              <MdAddCircle />
+            </button>
+          </div>
+        ))}
     </StyledSubtaskInputs>
   );
 };

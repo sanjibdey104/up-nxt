@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import db from "../firebase";
 import SubtaskInputs from "./SubtaskInputs";
+import { v4 as uuid } from "uuid";
 
 const StyledTaskForm = styled.form`
   display: flex;
@@ -76,7 +77,7 @@ const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [taskInput, setTaskInput] = useState("");
-  const initialSubtaskInputState = { subtask: "" };
+  const initialSubtaskInputState = { id: uuid(), subtask: "" };
   const [subtaskInputs, setSubtaskInputs] = useState([
     initialSubtaskInputState,
   ]);
