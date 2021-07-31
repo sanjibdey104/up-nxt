@@ -83,13 +83,15 @@ const SubtaskInputs = (props) => {
             >
               <MdRemoveCircle />
             </button>
-            <button
-              id="add-subtask-btn"
-              type="button"
-              onClick={() => addNewSubtaskInput()}
-            >
-              <MdAddCircle />
-            </button>
+            {subtaskInputs.length - 1 === index && (
+              <button
+                id="add-subtask-btn"
+                type="button"
+                onClick={() => addNewSubtaskInput()}
+              >
+                <MdAddCircle />
+              </button>
+            )}
           </div>
         ))}
     </StyledSubtaskInputs>
