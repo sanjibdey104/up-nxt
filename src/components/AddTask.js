@@ -3,7 +3,7 @@ import firebase from "firebase/app";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import db from "../firebase";
-import SubTasks from "./SubTasks";
+import SubtaskInputs from "./SubtaskInputs";
 
 const StyledTaskForm = styled.form`
   display: flex;
@@ -19,17 +19,25 @@ const StyledTaskForm = styled.form`
     margin-bottom: 1rem;
 
     border: 0;
-    -moz-outline-radius: 0.5rem;
+    outline: 0;
     background-color: var(--accent-color);
     border-radius: 0.5rem;
+    box-shadow: 3px 3px #000;
+    transition: all 150ms ease-in-out;
 
     &::placeholder {
       color: inherit;
     }
+
+    &:hover,
+    &:focus {
+      box-shadow: 1px 1px #000;
+    }
   }
 
-  .subtasks-input-section {
+  .subtask-input-section {
     width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -40,7 +48,7 @@ const StyledTaskForm = styled.form`
     transition: all 200ms ease-in-out;
 
     &#show {
-      max-height: 10rem;
+      max-height: 20rem;
     }
   }
 
@@ -68,23 +76,26 @@ const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [taskInput, setTaskInput] = useState("");
-  const [subtaskInputList, setSubtaskInputList] = useState([]);
+  const initialSubtaskInputState = { subtask: "" };
+  const [subtaskInputs, setSubtaskInputs] = useState([
+    initialSubtaskInputState,
+  ]);
 
   const createNewtask = (e) => {
     e.preventDefault();
     const newTask = {
       focus: taskInput,
-      subTasks: subtaskInputList,
       status: "todo",
+      subtasks: subtaskInputs,
       createdAt: firebase.firestore.Timestamp.now(),
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
     setTaskInput("");
-    setSubtaskInputList([]);
+    setSubtaskInputs([initialSubtaskInputState]);
   };
 
   return (
-    <StyledTaskForm onSubmit={(e) => createNewtask(e)}>
+    <StyledTaskForm onSubmit={createNewtask}>
       <input
         type="text"
         id="task-input"
@@ -93,22 +104,17 @@ const AddTask = () => {
         placeholder="enter a new task..."
       />
 
-      <div
-        className="subtasks-input-section"
-        id={taskInput.length ? "show" : null}
-      >
+      <div className="subtask-input-section" id={taskInput ? "show" : null}>
         <p>got some sub tasks ?</p>
-        <SubTasks
-          subtaskInputList={subtaskInputList}
-          setSubtaskInputList={setSubtaskInputList}
+        <SubtaskInputs
+          subtaskInputs={subtaskInputs}
+          setSubtaskInputs={setSubtaskInputs}
         />
       </div>
 
-      <button type="submit" id="task-submit-btn">
+      <button type="submit" id="task-submit-btn" onSubmit={createNewtask}>
         <span>+</span> Add Task
       </button>
-
-      {/* <SubTasks /> */}
     </StyledTaskForm>
   );
 };
