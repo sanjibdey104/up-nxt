@@ -30,7 +30,9 @@ const GreetUser = ({ taskCount }) => {
   // fetching current day task count (excluding 'done' status)
   const today = new Date();
   const currentDayTaskCount = tasks.filter(
-    (task) => task.createdAt.toDate().getDate() === today.getDate()
+    (task) =>
+      task.createdAt.toDate().getDate() === today.getDate() &&
+      task.status !== "done"
   ).length;
 
   return (
