@@ -78,7 +78,7 @@ const TaskEditingModal = ({
       className={visibility ? "open" : ""}
       onClick={() => setVisibility(false)}
     >
-      <section className="editing-section">
+      <section className="editing-section" onClick={(e) => e.stopPropagation()}>
         <div className="task-focus">
           <p>Focus:</p>
           <input
