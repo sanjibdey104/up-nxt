@@ -9,12 +9,13 @@ import TodayTasks from "./TodayTasks";
 import AllTasks from "./AllTasks";
 
 const Homepage = styled.section`
-  width: 75%;
+  width: 80%;
   margin: 0 auto;
   position: relative;
+  padding-bottom: 2rem;
 
   @media (max-width: 600px) {
-    width: 90%;
+    width: 95%;
   }
 
   display: flex;

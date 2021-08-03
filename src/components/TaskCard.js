@@ -7,6 +7,7 @@ import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import styled from "styled-components";
 import SubtaskList from "./SubtaskList";
+import TaskEditingModal from "./TaskEditingModal";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -40,13 +41,10 @@ const StyledTaskCard = styled.li`
     gap: 0.5rem;
     justify-content: space-between;
     align-items: flex-start;
+    border: 1px solid black;
   }
 
   #task-focus {
-    background-color: inherit;
-    border: 0;
-    width: 100%;
-    resize: none;
     font-size: 1rem;
     font-weight: 500;
     flex-grow: 1;
@@ -77,6 +75,7 @@ const StyledTaskCard = styled.li`
     color: #fff;
     border-radius: 50%;
     padding: 0.4rem;
+    cursor: pointer;
   }
 `;
 
@@ -86,7 +85,6 @@ const TaskCard = ({ task }) => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   let { currentTimestamp } = useContext(DateContext);
-  const inputRef = useRef();
 
   // format the task creation display date
   const taskDate = new Date(createdAt.toDate());
@@ -129,57 +127,34 @@ const TaskCard = ({ task }) => {
       });
   };
 
-  // dealing with task input textarea
-  const [focusValue, setFocusValue] = useState(focus);
-  const [inputFocusState, setInputFocusState] = useState(false);
-  const focusTaskField = () => {
-    inputRef.current.focus();
-    setInputFocusState(true);
-  };
-
-  // to update a task focus value
-  const updateTask = () => {
-    db.collection(`users/${uid}/tasks`).doc(key).update({ focus: focusValue });
-    setInputFocusState(false);
-  };
-
   // to delete a speicific task
   const deleteTask = () => {
     db.collection(`users/${uid}/tasks`).doc(key).delete();
   };
 
+  const [editingModalVisibility, setEditingModalVisibility] = useState(false);
+
   return (
     <StyledTaskCard id={status}>
       <div className="card-header">
-        <textarea
-          ref={inputRef}
-          name="task-focus"
-          id="task-focus"
-          cols="30"
-          value={focusValue}
-          onChange={(e) => setFocusValue(e.target.value)}
-          onFocus={(e) => {
-            e.currentTarget.setSelectionRange(
-              e.currentTarget.value.length,
-              e.currentTarget.value.length
-            );
-            setInputFocusState(true);
-          }}
-        />
+        <p id="task-focus">{focus}</p>
         {status === "done" ? (
           <button id="task-delete-btn">
             <MdDelete onClick={() => deleteTask()} />
           </button>
         ) : (
           <button id="task-edit-btn">
-            {inputFocusState ? (
-              <FaCheck id="update-icon" onClick={() => updateTask()} />
-            ) : (
-              <MdModeEdit onClick={() => focusTaskField()} />
-            )}
+            <MdModeEdit onClick={() => setEditingModalVisibility(true)} />
           </button>
         )}
       </div>
+      <TaskEditingModal
+        setVisibility={setEditingModalVisibility}
+        modalVisibility={editingModalVisibility}
+        visibility={editingModalVisibility}
+        focus={focus}
+        subtaskList={subtasks}
+      />
       <div className="subtasks">
         <SubtaskList
           uid={uid}
