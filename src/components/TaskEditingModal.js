@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { MdAddCircle } from "react-icons/md";
+import { v4 as uuid } from "uuid";
 
 const StyledTaskEditingModal = styled.div`
   width: 100%;
@@ -31,7 +33,7 @@ const StyledTaskEditingModal = styled.div`
   .editing-section {
     width: 100%;
     padding: 1rem;
-    height: 22rem;
+    min-height: 22rem;
     backdrop-filter: blur(10px);
     border-radius: 0.5rem;
 
@@ -42,20 +44,27 @@ const StyledTaskEditingModal = styled.div`
 
     input {
       width: 15rem;
+      font-weight: 500;
       border: 0;
       padding: 0.5rem;
       border-radius: 0.5rem;
       background-color: inherit;
       background-color: var(--accent-color);
     }
-    p {
-      margin-bottom: 0.5rem;
-    }
+  }
+  .subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
 
-    .subtask-list {
+    div {
       display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
+      justify-content: space-between;
+      align-items: center;
+
+      #add-subtask-btn {
+        font-size: 1.4rem;
+      }
     }
   }
 
@@ -83,10 +92,19 @@ const TaskEditingModal = (props) => {
   const updateFocusValue = (e) => {
     setFocusValue(e.target.value);
   };
+
   const updateSubtaskValue = (e, position) => {
     let subtasks = [...subtaskListCopy];
     subtasks[position].subtask = e.target.value;
     setSubtaskListCopy(subtasks);
+  };
+
+  const addNewSubtask = () => {
+    let subtaskList = [
+      ...subtaskListCopy,
+      { id: uuid(), subtask: "", isDone: false },
+    ];
+    setSubtaskListCopy(subtaskList);
   };
 
   return (
@@ -104,7 +122,16 @@ const TaskEditingModal = (props) => {
           />
         </div>
         <div className="subtask-list">
-          <p>Subtasks:</p>
+          <div>
+            <p>Subtasks:</p>
+            <button
+              stype="button"
+              id="add-subtask-btn"
+              onClick={() => addNewSubtask()}
+            >
+              <MdAddCircle />
+            </button>
+          </div>
           <ul className="subtask-list">
             {subtaskListCopy.map((subtask, index) => (
               <li key={subtask.id}>

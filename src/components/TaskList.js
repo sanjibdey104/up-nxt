@@ -9,7 +9,6 @@ const StyledTaskList = styled.ul`
 
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 1rem;
 
   overflow-x: scroll;
