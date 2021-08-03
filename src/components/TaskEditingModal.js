@@ -19,8 +19,8 @@ const StyledTaskEditingModal = styled.div`
 
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 
   display: grid;
   place-content: center;
@@ -84,8 +84,8 @@ const TaskEditingModal = (props) => {
     setVisibility,
     focusValue,
     setFocusValue,
-    subtaskListCopy,
-    setSubtaskListCopy,
+    subtaskList,
+    setSubtaskList,
     updateSubtaskList,
   } = props;
 
@@ -94,17 +94,14 @@ const TaskEditingModal = (props) => {
   };
 
   const updateSubtaskValue = (e, position) => {
-    let subtasks = [...subtaskListCopy];
+    let subtasks = [...subtaskList];
     subtasks[position].subtask = e.target.value;
-    setSubtaskListCopy(subtasks);
+    setSubtaskList(subtasks);
   };
 
   const addNewSubtask = () => {
-    let subtaskList = [
-      ...subtaskListCopy,
-      { id: uuid(), subtask: "", isDone: false },
-    ];
-    setSubtaskListCopy(subtaskList);
+    let subtasks = [...subtaskList, { id: uuid(), subtask: "", isDone: false }];
+    setSubtaskList(subtasks);
   };
 
   return (
@@ -133,7 +130,7 @@ const TaskEditingModal = (props) => {
             </button>
           </div>
           <ul className="subtask-list">
-            {subtaskListCopy.map((subtask, index) => (
+            {subtaskList.map((subtask, index) => (
               <li key={subtask.id}>
                 <input
                   type="text"
@@ -148,7 +145,7 @@ const TaskEditingModal = (props) => {
         <button
           type="button"
           id="submit-update-btn"
-          onClick={() => updateSubtaskList()}
+          onClick={updateSubtaskList}
         >
           Update
         </button>

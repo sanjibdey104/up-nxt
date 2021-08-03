@@ -132,12 +132,12 @@ const TaskCard = ({ task }) => {
 
   const [editingModalVisibility, setEditingModalVisibility] = useState(false);
   const [focusValue, setFocusValue] = useState(focus);
-  const [subtaskListCopy, setSubtaskListCopy] = useState(subtaskList);
+  // const [subtaskListCopy, setSubtaskListCopy] = useState(subtaskList);
 
   const updateSubtaskList = () => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
-      .set({ ...task, subtasks: subtaskListCopy });
+      .set({ ...task, subtasks: subtaskList });
     setEditingModalVisibility(false);
   };
 
@@ -161,8 +161,8 @@ const TaskCard = ({ task }) => {
         visibility={editingModalVisibility}
         focusValue={focusValue}
         setFocusValue={setFocusValue}
-        subtaskListCopy={subtaskListCopy}
-        setSubtaskListCopy={setSubtaskListCopy}
+        subtaskList={subtaskList}
+        setSubtaskList={setSubtaskList}
         updateSubtaskList={updateSubtaskList}
       />
       <div className="subtasks">
