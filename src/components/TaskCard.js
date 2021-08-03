@@ -7,6 +7,7 @@ import { MdModeEdit, MdDelete } from "react-icons/md";
 import styled from "styled-components";
 import SubtaskList from "./SubtaskList";
 import TaskEditingModal from "./TaskEditingModal";
+import dayjs from "dayjs";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -85,11 +86,8 @@ const TaskCard = ({ task }) => {
   let { currentTimestamp } = useContext(DateContext);
 
   // format the task creation display date
-  const taskDate = new Date(createdAt.toDate());
-  const taskCreationDate = taskDate.toLocaleDateString("en-US", {
-    day: "numeric",
-    month: "short",
-  });
+  const dt = new Date(createdAt.toDate());
+  const taskCreationDate = dayjs(dt).format("MMM DD");
 
   // logic to automatically move tasks to "backlog" when it crosses 24hour threshold
   const moveToOngoingTasks = () => {
