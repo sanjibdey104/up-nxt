@@ -23,7 +23,7 @@ const StyledTaskCard = styled.li`
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 
   &#todo {
-    background-color: #abc4ff;
+    background-color: #a2d2ff;
   }
   &#ongoing {
     background-color: #e9c46a;
