@@ -5,10 +5,11 @@ import { FaCheck } from "react-icons/fa";
 
 const StyledSubtaskList = styled.ul`
   width: 100%;
+  height: 4rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  color: black;
+  overflow-y: scroll;
 
   li {
     display: flex;

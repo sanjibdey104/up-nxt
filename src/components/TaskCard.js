@@ -15,7 +15,7 @@ const StyledTaskCard = styled.li`
   gap: 0.5rem;
   flex-shrink: 0;
 
-  min-height: 10rem;
+  min-height: 12rem;
   width: 18rem;
   padding: 0.85rem;
   border-radius: 0.85rem;
@@ -40,7 +40,8 @@ const StyledTaskCard = styled.li`
     border: 0;
     width: 100%;
     resize: none;
-    font-size: 0.9rem;
+    font-size: 1rem;
+    font-weight: 500;
   }
 
   .card-footer {
