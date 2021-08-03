@@ -11,6 +11,20 @@ const StyledSubtaskList = styled.ul`
   gap: 0.5rem;
   overflow-y: scroll;
 
+  &::-webkit-scrollbar {
+    width: 0.45rem;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 1rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #121212;
+    border-radius: 1rem;
+  }
+
   li {
     display: flex;
     gap: 0.5rem;
