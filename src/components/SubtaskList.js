@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import db from "../firebase";
+import { FaCheck } from "react-icons/fa";
 
 const StyledSubtaskList = styled.ul`
   width: 100%;
@@ -13,7 +14,48 @@ const StyledSubtaskList = styled.ul`
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    position: relative;
+    padding-left: 1.2rem;
     font-size: 0.85rem;
+    font-weight: 500;
+
+    input[type="checkbox"] {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      height: 0.75rem;
+      width: 0.75rem;
+      cursor: pointer;
+    }
+
+    .checkmark {
+      position: absolute;
+      left: 0;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+
+      height: 0.85rem;
+      width: 0.85rem;
+      border-radius: 2px;
+      border: 1px solid black;
+      display: grid;
+      place-content: center;
+
+      svg {
+        color: #121212;
+        width: 1rem;
+        transition: transform 150ms ease-in-out;
+        transform: scale(0);
+        transform-origin: bottom left;
+      }
+    }
+
+    input:checked ~ .checkmark svg {
+      transform: scale(1);
+    }
   }
 `;
 
@@ -45,15 +87,20 @@ const SubtaskList = ({ uid, taskKey, subtaskList, setSubtaskList }) => {
       {subtaskList &&
         subtaskList.map((task, index) => (
           <li key={task?.id} className="subtask">
-            <input
-              type="checkbox"
-              name="subtask"
-              id="subtask"
-              value={task.subtask}
-              checked={checkboxArray[index]}
-              onChange={() => handleSubtaskCheck(index)}
-            />
-            <label id="subtask-label">{task.subtask}</label>
+            <label id="subtask-label">
+              {task.subtask}
+              <input
+                type="checkbox"
+                name="subtask"
+                id="subtask"
+                value={task.subtask}
+                checked={checkboxArray[index]}
+                onChange={() => handleSubtaskCheck(index)}
+              />
+              <span className="checkmark">
+                <FaCheck />
+              </span>
+            </label>
           </li>
         ))}
     </StyledSubtaskList>
