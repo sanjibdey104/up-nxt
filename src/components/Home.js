@@ -29,7 +29,7 @@ const MainSection = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5rem;
+  gap: 4rem;
 
   h2 {
     text-align: center;
