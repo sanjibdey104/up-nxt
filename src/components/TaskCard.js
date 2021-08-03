@@ -35,6 +35,13 @@ const StyledTaskCard = styled.li`
     background-color: #ffb3c1;
   }
 
+  .card-header {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
   #task-focus {
     background-color: inherit;
     border: 0;
@@ -42,6 +49,7 @@ const StyledTaskCard = styled.li`
     resize: none;
     font-size: 1rem;
     font-weight: 500;
+    flex-grow: 1;
   }
 
   .card-footer {
@@ -142,7 +150,7 @@ const TaskCard = ({ task }) => {
 
   return (
     <StyledTaskCard id={status}>
-      <div className="card-main">
+      <div className="card-header">
         <textarea
           ref={inputRef}
           name="task-focus"
@@ -158,6 +166,19 @@ const TaskCard = ({ task }) => {
             setInputFocusState(true);
           }}
         />
+        {status === "done" ? (
+          <button id="task-delete-btn">
+            <MdDelete onClick={() => deleteTask()} />
+          </button>
+        ) : (
+          <button id="task-edit-btn">
+            {inputFocusState ? (
+              <FaCheck id="update-icon" onClick={() => updateTask()} />
+            ) : (
+              <MdModeEdit onClick={() => focusTaskField()} />
+            )}
+          </button>
+        )}
       </div>
       <div className="subtasks">
         <SubtaskList
@@ -188,20 +209,6 @@ const TaskCard = ({ task }) => {
         </select>
 
         <p id="date">{taskCreationDate}</p>
-
-        {status === "done" ? (
-          <button id="task-delete-btn">
-            <MdDelete onClick={() => deleteTask()} />
-          </button>
-        ) : (
-          <button id="task-edit-btn">
-            {inputFocusState ? (
-              <FaCheck id="update-icon" onClick={() => updateTask()} />
-            ) : (
-              <MdModeEdit onClick={() => focusTaskField()} />
-            )}
-          </button>
-        )}
       </div>
     </StyledTaskCard>
   );
