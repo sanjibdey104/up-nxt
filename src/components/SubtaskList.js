@@ -20,6 +20,11 @@ const StyledSubtaskList = styled.ul`
     font-size: 0.85rem;
     font-weight: 500;
 
+    &#done {
+      text-decoration: line-through;
+      color: #4a4e69;
+    }
+
     input[type="checkbox"] {
       position: absolute;
       left: 0;
@@ -87,7 +92,11 @@ const SubtaskList = ({ uid, taskKey, subtaskList, setSubtaskList }) => {
     <StyledSubtaskList>
       {subtaskList &&
         subtaskList.map((task, index) => (
-          <li key={task?.id} className="subtask">
+          <li
+            key={task?.id}
+            className="subtask"
+            id={checkboxArray[index] ? "done" : null}
+          >
             <label id="subtask-label">
               {task.subtask}
               <input
