@@ -1,9 +1,8 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import firebase from "firebase/app";
 import db from "../firebase";
 import { AuthContext } from "../Auth";
 import { DateContext } from "../context/DateContext";
-import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import styled from "styled-components";
 import SubtaskList from "./SubtaskList";

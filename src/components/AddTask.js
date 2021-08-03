@@ -11,7 +11,6 @@ const StyledTaskForm = styled.form`
   flex-direction: column;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
 
   #task-input {
     width: 22rem;

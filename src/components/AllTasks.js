@@ -7,7 +7,6 @@ const AllTasksSection = styled.section`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  display: none;
 
   .task-status-list {
     height: 2rem;

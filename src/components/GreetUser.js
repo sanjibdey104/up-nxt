@@ -7,7 +7,6 @@ const StyledGreet = styled.section`
   display: flex;
   flex-direction: column;
   font-size: 1.1rem;
-  margin-bottom: 2rem;
 
   #profile-photo {
     width: 3rem;

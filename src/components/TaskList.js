@@ -5,12 +5,14 @@ import TaskCard from "./TaskCard";
 const StyledTaskList = styled.ul`
   width: 100%;
   margin: 0 auto;
+  padding: 1rem;
 
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1rem;
+
   overflow-x: scroll;
-  padding: 1rem;
 `;
 
 const TaskList = ({ tasks }) => {
