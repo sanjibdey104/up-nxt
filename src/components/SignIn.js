@@ -7,17 +7,14 @@ import styled from "styled-components";
 import Logo from "./Logo";
 
 const SignInPage = styled.section`
-  height: 100%;
   width: 100%;
+  height: 100%;
 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1rem;
-
-  position: relative;
-  background-color: #efefef;
 
   h2 {
     font-size: 1.85rem;

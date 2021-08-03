@@ -35,8 +35,6 @@ body {
     width: 100%;
     min-height: 100%;
     background-color: #efefef;
-    padding-bottom: 2rem;
-
     display: flex;
     justify-content: center;
     align-items: center;
