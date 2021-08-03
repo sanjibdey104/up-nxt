@@ -28,7 +28,11 @@ const MainSection = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3rem;
+  gap: 5rem;
+
+  h2 {
+    text-align: center;
+  }
 
   @media (max-width: 600px) {
     width: 100%;

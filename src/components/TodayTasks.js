@@ -4,6 +4,7 @@ import { FetchAllTasks } from "../data/AllTasks";
 import TaskList from "./TaskList";
 
 const StyledTodayTasks = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
