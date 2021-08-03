@@ -55,7 +55,10 @@ const SubtaskInputs = (props) => {
   };
 
   const addNewSubtaskInput = () => {
-    setSubtaskInputs([...subtaskInputs, { id: uuid(), subtask: "" }]);
+    setSubtaskInputs([
+      ...subtaskInputs,
+      { id: uuid(), subtask: "", isDone: false },
+    ]);
   };
 
   const removeSubtaskInput = (index) => {

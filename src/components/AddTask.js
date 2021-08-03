@@ -77,7 +77,7 @@ const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [taskInput, setTaskInput] = useState("");
-  const initialSubtaskInputState = { id: uuid(), subtask: "" };
+  const initialSubtaskInputState = { id: uuid(), subtask: "", isDone: false };
   const [subtaskInputs, setSubtaskInputs] = useState([
     initialSubtaskInputState,
   ]);
@@ -88,7 +88,6 @@ const AddTask = () => {
       focus: taskInput,
       status: "todo",
       subtasks: subtaskInputs,
-      isComplete: false,
       createdAt: firebase.firestore.Timestamp.now(),
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
