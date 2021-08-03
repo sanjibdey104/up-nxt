@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 const StyledTaskEditingModal = styled.div`
@@ -31,7 +31,7 @@ const StyledTaskEditingModal = styled.div`
   .editing-section {
     width: 100%;
     padding: 1rem;
-    height: 20rem;
+    height: 22rem;
     backdrop-filter: blur(10px);
     border-radius: 0.5rem;
 
@@ -43,7 +43,6 @@ const StyledTaskEditingModal = styled.div`
     input {
       width: 15rem;
       border: 0;
-      /* border: 1px solid black; */
       padding: 0.5rem;
       border-radius: 0.5rem;
       background-color: inherit;
@@ -59,20 +58,37 @@ const StyledTaskEditingModal = styled.div`
       gap: 0.75rem;
     }
   }
+
+  #submit-update-btn {
+    background-color: #121212;
+    color: #f2f2f2;
+    width: 5rem;
+    border-radius: 0.5rem;
+    padding: 0.3rem;
+    margin: 0 auto;
+  }
 `;
 
-const TaskEditingModal = ({
-  visibility,
-  setVisibility,
-  focus,
-  subtaskList,
-}) => {
-  const handleTaskFocusUpdate = () => {
-    console.log("focus updated");
+const TaskEditingModal = (props) => {
+  const {
+    visibility,
+    setVisibility,
+    focusValue,
+    setFocusValue,
+    subtaskListCopy,
+    setSubtaskListCopy,
+    updateSubtaskList,
+  } = props;
+
+  const updateFocusValue = (e) => {
+    setFocusValue(e.target.value);
   };
-  const handleSubtaskListUpdate = () => {
-    console.log("list updated");
+  const updateSubtaskValue = (e, position) => {
+    let subtasks = [...subtaskListCopy];
+    subtasks[position].subtask = e.target.value;
+    setSubtaskListCopy(subtasks);
   };
+
   return (
     <StyledTaskEditingModal
       className={visibility ? "open" : ""}
@@ -83,25 +99,32 @@ const TaskEditingModal = ({
           <p>Focus:</p>
           <input
             type="text"
-            value={focus}
-            onChange={() => handleTaskFocusUpdate()}
+            value={focusValue}
+            onChange={(e) => updateFocusValue(e)}
           />
         </div>
         <div className="subtask-list">
           <p>Subtasks:</p>
           <ul className="subtask-list">
-            {subtaskList.map((subtask) => (
+            {subtaskListCopy.map((subtask, index) => (
               <li key={subtask.id}>
                 <input
                   type="text"
                   className="subtask"
                   value={subtask.subtask}
-                  onChange={() => handleSubtaskListUpdate()}
+                  onChange={(e) => updateSubtaskValue(e, index)}
                 />
               </li>
             ))}
           </ul>
         </div>
+        <button
+          type="button"
+          id="submit-update-btn"
+          onClick={() => updateSubtaskList()}
+        >
+          Update
+        </button>
       </section>
     </StyledTaskEditingModal>
   );

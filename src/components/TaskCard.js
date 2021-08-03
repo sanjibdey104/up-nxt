@@ -41,7 +41,6 @@ const StyledTaskCard = styled.li`
     gap: 0.5rem;
     justify-content: space-between;
     align-items: flex-start;
-    border: 1px solid black;
   }
 
   #task-focus {
@@ -133,6 +132,15 @@ const TaskCard = ({ task }) => {
   };
 
   const [editingModalVisibility, setEditingModalVisibility] = useState(false);
+  const [focusValue, setFocusValue] = useState(focus);
+  const [subtaskListCopy, setSubtaskListCopy] = useState(subtaskList);
+
+  const updateSubtaskList = () => {
+    db.collection(`users/${uid}/tasks`)
+      .doc(key)
+      .set({ ...task, subtasks: subtaskListCopy });
+    setEditingModalVisibility(false);
+  };
 
   return (
     <StyledTaskCard id={status}>
@@ -152,8 +160,11 @@ const TaskCard = ({ task }) => {
         setVisibility={setEditingModalVisibility}
         modalVisibility={editingModalVisibility}
         visibility={editingModalVisibility}
-        focus={focus}
-        subtaskList={subtasks}
+        focusValue={focusValue}
+        setFocusValue={setFocusValue}
+        subtaskListCopy={subtaskListCopy}
+        setSubtaskListCopy={setSubtaskListCopy}
+        updateSubtaskList={updateSubtaskList}
       />
       <div className="subtasks">
         <SubtaskList
