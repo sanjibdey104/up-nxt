@@ -88,6 +88,7 @@ const AddTask = () => {
       focus: taskInput,
       status: "todo",
       subtasks: subtaskInputs,
+      isComplete: false,
       createdAt: firebase.firestore.Timestamp.now(),
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);

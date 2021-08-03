@@ -6,6 +6,7 @@ import { DateContext } from "../context/DateContext";
 import { FaCheck } from "react-icons/fa";
 import { MdModeEdit, MdDelete } from "react-icons/md";
 import styled from "styled-components";
+import SubtaskList from "./SubtaskList";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -71,7 +72,8 @@ const StyledTaskCard = styled.li`
 `;
 
 const TaskCard = ({ task }) => {
-  const { status, focus, createdAt, key } = task;
+  const { status, focus, createdAt, key, subtasks } = task;
+  const [subtaskList, setSubtaskList] = useState(subtasks);
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   let { currentTimestamp } = useContext(DateContext);
@@ -154,6 +156,14 @@ const TaskCard = ({ task }) => {
             );
             setInputFocusState(true);
           }}
+        />
+      </div>
+      <div className="subtasks">
+        <SubtaskList
+          uid={uid}
+          taskKey={key}
+          subtaskList={subtaskList}
+          setSubtaskList={setSubtaskList}
         />
       </div>
       <div className="card-footer">
