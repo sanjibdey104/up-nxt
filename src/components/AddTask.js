@@ -5,6 +5,8 @@ import { AuthContext } from "../Auth";
 import db from "../firebase";
 import SubtaskInputs from "./SubtaskInputs";
 import { v4 as uuid } from "uuid";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const StyledTaskForm = styled.form`
   display: flex;
@@ -35,8 +37,28 @@ const StyledTaskForm = styled.form`
     }
   }
 
+  .date-picker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .custom-date-picker {
+    width: 12rem;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 3px var(--accent-color);
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
   .subtask-input-section {
     width: 100%;
+    font-weight: 500;
 
     display: flex;
     flex-direction: column;
@@ -81,6 +103,9 @@ const AddTask = () => {
     initialSubtaskInputState,
   ]);
 
+  const currentDay = new Date();
+  const [taskCompletionDate, setTaskCompletionDate] = useState(currentDay);
+
   const createNewtask = (e) => {
     e.preventDefault();
     const newTask = {
@@ -88,10 +113,12 @@ const AddTask = () => {
       status: "todo",
       subtasks: subtaskInputs,
       createdAt: firebase.firestore.Timestamp.now(),
+      getDoneBy: taskCompletionDate,
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
     setTaskInput("");
     setSubtaskInputs([initialSubtaskInputState]);
+    setTaskCompletionDate(currentDay);
   };
 
   return (
@@ -103,6 +130,17 @@ const AddTask = () => {
         onChange={(e) => setTaskInput(e.target.value)}
         placeholder="enter a new task..."
       />
+
+      <div className="date-picker">
+        <p>Get it done by:</p>
+        <ReactDatePicker
+          dateFormat="dd/MM/yyyy"
+          minDate={new Date()}
+          selected={taskCompletionDate}
+          onChange={(date) => setTaskCompletionDate(date)}
+          className="custom-date-picker"
+        />
+      </div>
 
       <div className="subtask-input-section" id={taskInput ? "show" : null}>
         <p>got some sub tasks ?</p>
