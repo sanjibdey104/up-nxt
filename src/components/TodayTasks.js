@@ -15,8 +15,8 @@ const TodayTasks = () => {
   const today = new Date();
   const tasksForToday = tasks.filter(
     (task) =>
-      task.createdAt.toDate().getDate() === today.getDate() &&
-      task.status !== "done"
+      task.createdAt.toDate().getDate() === today.getDate() ||
+      (task.status === "ongoing" && task.status !== "done")
   );
 
   return (

@@ -53,7 +53,7 @@ const AllTasks = ({ tasks }) => {
             onClick={() => handleStatus(index, status)}
             className={indexValue === index ? "active" : ""}
           >
-            {status}
+            {status} ({tasks.filter((task) => task.status === status).length})
           </li>
         ))}
       </ul>
