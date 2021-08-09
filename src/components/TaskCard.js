@@ -63,9 +63,17 @@ const StyledTaskCard = styled.li`
     }
   }
 
-  #date {
-    font-size: 0.85rem;
-    font-weight: bolder;
+  .dates {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    /* gap: 0.5rem; */
+    font-size: 0.75rem;
+
+    span {
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
   }
 
   #task-edit-btn,
@@ -79,15 +87,17 @@ const StyledTaskCard = styled.li`
 `;
 
 const TaskCard = ({ task }) => {
-  const { status, focus, createdAt, key, subtasks } = task;
+  const { key, status, focus, createdAt, getDoneBy, subtasks } = task;
   const [subtaskList, setSubtaskList] = useState(subtasks);
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   let { currentTimestamp } = useContext(DateContext);
 
-  // format the task creation display date
+  // format the task creation and closing date
   const dt = new Date(createdAt.toDate());
   const taskCreationDate = dayjs(dt).format("MMM DD");
+  const gdt = new Date(getDoneBy.toDate());
+  const closeBy = dayjs(gdt).format("MMM DD");
 
   // logic to automatically move tasks to "backlog" when it crosses 24hour threshold
   const moveToOngoingTasks = () => {
@@ -191,7 +201,14 @@ const TaskCard = ({ task }) => {
           })}
         </select>
 
-        <p id="date">{taskCreationDate}</p>
+        <div className="dates">
+          <p>
+            created on: <span>{taskCreationDate}</span>
+          </p>
+          <p>
+            get done by: <span>{closeBy}</span>
+          </p>
+        </div>
       </div>
     </StyledTaskCard>
   );
