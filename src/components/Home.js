@@ -7,6 +7,7 @@ import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
 import TodayTasks from "./TodayTasks";
 import AllTasks from "./AllTasks";
+import { TaskContext } from "../context/TaskContext";
 
 const Homepage = styled.section`
   width: 80%;
@@ -61,17 +62,19 @@ const Home = () => {
   const { tasks, currentTimestamp } = FetchAllTasks();
 
   return (
-    <DateContext.Provider value={{ currentTimestamp }}>
-      <Homepage>
-        <Navbar />
-        <MainSection>
-          <GreetUser taskCount={tasks.length} />
-          <AddTask />
-          <TodayTasks tasks={tasks} />
-          <AllTasks tasks={tasks} />
-        </MainSection>
-      </Homepage>
-    </DateContext.Provider>
+    <TaskContext.Provider value={{ tasks }}>
+      <DateContext.Provider value={{ currentTimestamp }}>
+        <Homepage>
+          <Navbar />
+          <MainSection>
+            <GreetUser />
+            <AddTask />
+            <TodayTasks />
+            <AllTasks />
+          </MainSection>
+        </Homepage>
+      </DateContext.Provider>
+    </TaskContext.Provider>
   );
 };
 

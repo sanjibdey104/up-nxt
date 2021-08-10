@@ -3,11 +3,11 @@ import firebase from "firebase/app";
 import db from "../firebase";
 import { AuthContext } from "../Auth";
 import { DateContext } from "../context/DateContext";
-import { MdModeEdit, MdDelete } from "react-icons/md";
+import dayjs from "dayjs";
 import styled from "styled-components";
 import SubtaskList from "./SubtaskList";
 import TaskEditingModal from "./TaskEditingModal";
-import dayjs from "dayjs";
+import { MdModeEdit, MdDelete } from "react-icons/md";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -87,11 +87,10 @@ const StyledTaskCard = styled.li`
 `;
 
 const TaskCard = ({ task }) => {
-  const { key, status, focus, createdAt, getDoneBy, subtasks } = task;
-  const [subtaskList, setSubtaskList] = useState(subtasks);
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   let { currentTimestamp } = useContext(DateContext);
+  const { key, status, focus, createdAt, getDoneBy, subtasks } = task;
 
   // format the task creation and closing date
   const dt = new Date(createdAt.toDate());
@@ -140,14 +139,7 @@ const TaskCard = ({ task }) => {
 
   const [editingModalVisibility, setEditingModalVisibility] = useState(false);
   const [focusValue, setFocusValue] = useState(focus);
-  // const [subtaskListCopy, setSubtaskListCopy] = useState(subtaskList);
-
-  const updateSubtaskList = () => {
-    db.collection(`users/${uid}/tasks`)
-      .doc(key)
-      .set({ ...task, subtasks: subtaskList });
-    setEditingModalVisibility(false);
-  };
+  const [subtaskList, setSubtaskList] = useState(subtasks);
 
   return (
     <StyledTaskCard id={status}>
@@ -164,20 +156,22 @@ const TaskCard = ({ task }) => {
         )}
       </div>
       <TaskEditingModal
+        uid={uid}
+        taskKey={key}
+        task={task}
         setVisibility={setEditingModalVisibility}
         modalVisibility={editingModalVisibility}
         visibility={editingModalVisibility}
         focusValue={focusValue}
         setFocusValue={setFocusValue}
-        subtaskList={subtaskList}
+        subtaskList={subtaskList ? subtaskList : []}
         setSubtaskList={setSubtaskList}
-        updateSubtaskList={updateSubtaskList}
       />
       <div className="subtasks">
         <SubtaskList
           uid={uid}
           taskKey={key}
-          subtaskList={subtaskList}
+          subtaskList={subtaskList ? subtaskList : []}
           setSubtaskList={setSubtaskList}
         />
       </div>

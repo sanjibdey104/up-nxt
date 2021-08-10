@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
+import { TaskContext } from "../context/TaskContext";
 import TaskList from "./TaskList";
 
 const AllTasksSection = styled.section`
@@ -31,7 +32,8 @@ const AllTasksSection = styled.section`
   }
 `;
 
-const AllTasks = ({ tasks }) => {
+const AllTasks = () => {
+  const { tasks } = useContext(TaskContext);
   const [indexValue, setIndexValue] = useState(0);
   const [activeStatus, setActiveStatus] = useState("todo");
   const taskStatus = ["todo", "backlog", "ongoing", "done"];

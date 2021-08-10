@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { FetchAllTasks } from "../data/AllTasks";
+import { TaskContext } from "../context/TaskContext";
 import TaskList from "./TaskList";
 
 const StyledTodayTasks = styled.section`
@@ -11,12 +11,13 @@ const StyledTodayTasks = styled.section`
 `;
 
 const TodayTasks = () => {
-  const { tasks } = FetchAllTasks();
+  const { tasks } = useContext(TaskContext);
   const today = new Date();
   const tasksForToday = tasks.filter(
     (task) =>
-      task.createdAt.toDate().getDate() === today.getDate() ||
-      (task.status === "ongoing" && task.status !== "done")
+      task.createdAt.toDate().getDate() <= today.getDate() &&
+      task.status !== "done" &&
+      task.status !== "backlog"
   );
 
   return (

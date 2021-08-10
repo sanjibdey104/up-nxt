@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import db from "../firebase";
 import { FaCheck } from "react-icons/fa";
+import db from "../firebase";
 
 const StyledSubtaskList = styled.ul`
   width: 100%;
@@ -80,53 +80,39 @@ const StyledSubtaskList = styled.ul`
 `;
 
 const SubtaskList = ({ uid, taskKey, subtaskList, setSubtaskList }) => {
-  const doneChecks = subtaskList.map((subtask) => subtask.isDone);
+  const handleSubtaskCheck = (subtaskId) => {
+    const updatedSubtaskList = subtaskList.map((subtask) => {
+      if (subtask.id === subtaskId)
+        return { ...subtask, isDone: !subtask.isDone };
+      else return subtask;
+    });
 
-  //   const initialCheckboxArray = Array(subtasks.length).fill(false);
-  const [checkboxArray, setCheckboxArray] = useState(doneChecks);
-
-  const handleSubtaskCheck = (position) => {
-    const updatedCheckboxArray = checkboxArray.map((checkbox, index) =>
-      position === index ? !checkbox : checkbox
-    );
-    setCheckboxArray(updatedCheckboxArray);
-
-    const subtaskListCopy = subtaskList.map((subtask, index) => ({
-      ...subtask,
-      isDone: updatedCheckboxArray[index],
-    }));
-    setSubtaskList(subtaskListCopy);
+    setSubtaskList(updatedSubtaskList);
 
     db.collection(`users/${uid}/tasks`)
       .doc(taskKey)
-      .update({ subtasks: subtaskListCopy });
+      .update({ subtasks: updatedSubtaskList });
   };
 
   return (
     <StyledSubtaskList>
-      {subtaskList &&
-        subtaskList.map((task, index) => (
-          <li
-            key={task?.id}
-            className="subtask"
-            id={checkboxArray[index] ? "done" : null}
-          >
-            <label id="subtask-label">
-              {task.subtask}
-              <input
-                type="checkbox"
-                name="subtask"
-                id="subtask"
-                value={task.subtask}
-                checked={checkboxArray[index]}
-                onChange={() => handleSubtaskCheck(index)}
-              />
-              <span className="checkmark">
-                <FaCheck />
-              </span>
-            </label>
-          </li>
-        ))}
+      {subtaskList.map(({ id, subtask, isDone }, index) => (
+        <li key={id} className="subtask" id={isDone ? "done" : null}>
+          <label>
+            {subtask}
+            <input
+              type="checkbox"
+              id="subtask"
+              value={subtask}
+              checked={isDone}
+              onChange={() => handleSubtaskCheck(id)}
+            />
+            <span className="checkmark">
+              <FaCheck />
+            </span>
+          </label>
+        </li>
+      ))}
     </StyledSubtaskList>
   );
 };
