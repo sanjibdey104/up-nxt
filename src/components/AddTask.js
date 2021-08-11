@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { forwardRef, useContext, useState } from "react";
 import firebase from "firebase/app";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
@@ -47,13 +47,14 @@ const StyledTaskForm = styled.form`
   }
 
   .custom-date-picker {
-    width: 12rem;
-    padding: 0.5rem;
+    width: 8rem;
+    padding: 0.3rem;
     border: 0;
     border-radius: 0.5rem;
-    box-shadow: 0 0 3px var(--accent-color);
     font-weight: 500;
     font-size: 1rem;
+    background-color: var(--accent-color);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
   }
 
   .subtask-input-section {
@@ -121,6 +122,17 @@ const AddTask = () => {
     setTaskCompletionDate(currentDay);
   };
 
+  const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
+    <button
+      type="button"
+      onClick={onClick}
+      ref={ref}
+      className="custom-date-picker"
+    >
+      {value}
+    </button>
+  ));
+
   return (
     <StyledTaskForm onSubmit={createNewtask}>
       <input
@@ -129,6 +141,7 @@ const AddTask = () => {
         value={taskInput}
         onChange={(e) => setTaskInput(e.target.value)}
         placeholder="enter a new task..."
+        required
       />
 
       <div className="date-picker">
@@ -138,7 +151,7 @@ const AddTask = () => {
           minDate={new Date()}
           selected={taskCompletionDate}
           onChange={(date) => setTaskCompletionDate(date)}
-          className="custom-date-picker"
+          customInput={<ExampleCustomInput />}
         />
       </div>
 
