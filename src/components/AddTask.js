@@ -65,13 +65,14 @@ const StyledTaskForm = styled.form`
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    padding: 0.3rem 0;
 
     max-height: 0;
     overflow: hidden;
     transition: all 200ms ease-in-out;
 
     &#show {
-      max-height: 20rem;
+      max-height: 18rem;
     }
   }
 
@@ -98,7 +99,7 @@ const StyledTaskForm = styled.form`
 const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
-  const [taskInput, setTaskInput] = useState("");
+  const [taskFocus, setTaskFocus] = useState("");
   const initialSubtaskListState = { id: uuid(), subtask: "", isDone: false };
   const [subtaskList, setSubtaskList] = useState([initialSubtaskListState]);
 
@@ -110,14 +111,14 @@ const AddTask = () => {
     let finalSubtaskList = subtaskList.filter((item) => item.subtask !== "");
 
     const newTask = {
-      focus: taskInput,
+      focus: taskFocus,
       status: "todo",
       subtasks: finalSubtaskList,
       createdAt: firebase.firestore.Timestamp.now(),
       getDoneBy: taskCompletionDate,
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
-    setTaskInput("");
+    setTaskFocus("");
     setSubtaskList([initialSubtaskListState]);
     setTaskCompletionDate(currentDay);
   };
@@ -138,10 +139,9 @@ const AddTask = () => {
       <input
         type="text"
         id="task-input"
-        value={taskInput}
-        onChange={(e) => setTaskInput(e.target.value)}
+        value={taskFocus}
+        onChange={(e) => setTaskFocus(e.target.value)}
         placeholder="enter a new task..."
-        required
       />
 
       <div className="date-picker">
@@ -155,7 +155,7 @@ const AddTask = () => {
         />
       </div>
 
-      <div className="subtask-input-section" id={taskInput ? "show" : null}>
+      <div className="subtask-input-section" id={taskFocus ? "show" : null}>
         <p>got some sub tasks ?</p>
         <SubtaskListHandler
           subtaskList={subtaskList}
@@ -165,7 +165,7 @@ const AddTask = () => {
         />
       </div>
 
-      <button type="submit" id="task-submit-btn" onSubmit={createNewtask}>
+      <button type="submit" id="task-submit-btn" disabled={taskFocus === ""}>
         <span>+</span> Add Task
       </button>
     </StyledTaskForm>

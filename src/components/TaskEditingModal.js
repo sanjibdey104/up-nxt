@@ -107,6 +107,7 @@ const TaskEditingModal = (props) => {
           type="submit"
           className="update-submit-btn"
           onClick={(e) => updateTask(e)}
+          disabled={focusValue === ""}
         >
           Update
         </button>
