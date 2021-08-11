@@ -3,10 +3,10 @@ import firebase from "firebase/app";
 import styled from "styled-components";
 import { AuthContext } from "../Auth";
 import db from "../firebase";
-import SubtaskInputs from "./SubtaskInputs";
 import { v4 as uuid } from "uuid";
 import ReactDatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import SubtaskListHandler from "./SubtaskListHandler";
 
 const StyledTaskForm = styled.form`
   display: flex;
@@ -98,26 +98,26 @@ const AddTask = () => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
   const [taskInput, setTaskInput] = useState("");
-  const initialSubtaskInputState = { id: uuid(), subtask: "", isDone: false };
-  const [subtaskInputs, setSubtaskInputs] = useState([
-    initialSubtaskInputState,
-  ]);
+  const initialSubtaskListState = { id: uuid(), subtask: "", isDone: false };
+  const [subtaskList, setSubtaskList] = useState([initialSubtaskListState]);
 
   const currentDay = new Date();
   const [taskCompletionDate, setTaskCompletionDate] = useState(currentDay);
 
   const createNewtask = (e) => {
     e.preventDefault();
+    let finalSubtaskList = subtaskList.filter((item) => item.subtask !== "");
+
     const newTask = {
       focus: taskInput,
       status: "todo",
-      subtasks: subtaskInputs,
+      subtasks: finalSubtaskList,
       createdAt: firebase.firestore.Timestamp.now(),
       getDoneBy: taskCompletionDate,
     };
     db.collection(`/users/${uid}/tasks`).add(newTask);
     setTaskInput("");
-    setSubtaskInputs([initialSubtaskInputState]);
+    setSubtaskList([initialSubtaskListState]);
     setTaskCompletionDate(currentDay);
   };
 
@@ -144,9 +144,11 @@ const AddTask = () => {
 
       <div className="subtask-input-section" id={taskInput ? "show" : null}>
         <p>got some sub tasks ?</p>
-        <SubtaskInputs
-          subtaskInputs={subtaskInputs}
-          setSubtaskInputs={setSubtaskInputs}
+        <SubtaskListHandler
+          subtaskList={subtaskList}
+          setSubtaskList={setSubtaskList}
+          initialState={initialSubtaskListState}
+          comp="fresh"
         />
       </div>
 

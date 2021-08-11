@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import firebase from "firebase/app";
 import db from "../firebase";
 import { AuthContext } from "../Auth";
@@ -8,6 +8,7 @@ import styled from "styled-components";
 import SubtaskList from "./SubtaskList";
 import TaskEditingModal from "./TaskEditingModal";
 import { MdModeEdit, MdDelete } from "react-icons/md";
+import { v4 as uuid } from "uuid";
 
 const StyledTaskCard = styled.li`
   display: flex;
@@ -137,9 +138,22 @@ const TaskCard = ({ task }) => {
     db.collection(`users/${uid}/tasks`).doc(key).delete();
   };
 
-  const [editingModalVisibility, setEditingModalVisibility] = useState(false);
+  const [modalVisibility, setModalVisibility] = useState(false);
   const [focusValue, setFocusValue] = useState(focus);
-  const [subtaskList, setSubtaskList] = useState(subtasks);
+  let [subtaskList, setSubtaskList] = useState(subtasks);
+
+  const updateTask = (e) => {
+    e.preventDefault();
+    let finalSubtaskList = subtaskList.filter((item) => item.subtask !== "");
+    db.collection(`users/${uid}/tasks`)
+      .doc(key)
+      .set({
+        ...task,
+        focus: focusValue,
+        subtasks: finalSubtaskList,
+      });
+    setModalVisibility(false);
+  };
 
   return (
     <StyledTaskCard id={status}>
@@ -151,21 +165,23 @@ const TaskCard = ({ task }) => {
           </button>
         ) : (
           <button id="task-edit-btn">
-            <MdModeEdit onClick={() => setEditingModalVisibility(true)} />
+            <MdModeEdit onClick={() => setModalVisibility(true)} />
           </button>
         )}
       </div>
       <TaskEditingModal
-        uid={uid}
-        taskKey={key}
+        modalVisibility={modalVisibility}
+        setModalVisibility={setModalVisibility}
         task={task}
-        setVisibility={setEditingModalVisibility}
-        modalVisibility={editingModalVisibility}
-        visibility={editingModalVisibility}
         focusValue={focusValue}
         setFocusValue={setFocusValue}
-        subtaskList={subtaskList ? subtaskList : []}
+        subtaskList={
+          subtaskList.length
+            ? subtaskList
+            : [{ id: uuid(), subtask: "", isDone: false }]
+        }
         setSubtaskList={setSubtaskList}
+        updateTask={updateTask}
       />
       <div className="subtasks">
         <SubtaskList

@@ -20,18 +20,18 @@ const StyledGreet = styled.section`
   }
 `;
 
-const GreetUser = ({ taskCount }) => {
+const GreetUser = () => {
   const { tasks } = FetchAllTasks();
   const { currentUser } = useContext(AuthContext);
   const { displayName, photoURL } = currentUser;
   const firstName = displayName.split(" ")[0];
 
-  // fetching current day task count (excluding 'done' status)
   const today = new Date();
-  const currentDayTaskCount = tasks.filter(
+  const activeTaskCount = tasks.filter(
     (task) =>
-      task.createdAt.toDate().getDate() === today.getDate() ||
-      (task.status === "ongoing" && task.status !== "done")
+      task.createdAt.toDate().getDate() <= today.getDate() &&
+      task.status !== "done" &&
+      task.status !== "backlog"
   ).length;
 
   return (
@@ -40,7 +40,7 @@ const GreetUser = ({ taskCount }) => {
       <p id="username">Hey, {firstName} ☕</p>
       <p>Good to have you back.</p>
       <p id="task-count">
-        You've got <span>{currentDayTaskCount}</span> tasks today 📝
+        You've got <span>{activeTaskCount}</span> active tasks 📝
       </p>
     </StyledGreet>
   );

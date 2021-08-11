@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { MdAddCircle, MdRemoveCircle } from "react-icons/md";
-import { v4 as uuid } from "uuid";
-import db from "../firebase";
+import SubtaskListHandler from "./SubtaskListHandler";
 
 const StyledTaskEditingModal = styled.div`
   width: 100%;
   height: 100%;
 
-  display: grid;
-  place-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
   inset: 0;
 
@@ -27,55 +26,29 @@ const StyledTaskEditingModal = styled.div`
     pointer-events: visible;
   }
 
-  .subtask-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-
-    div {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      #add-subtask-btn {
-        font-size: 1.4rem;
-      }
-    }
-  }
-
   .task-edit-form {
+    width: 20rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
     gap: 2rem;
-    padding: 0.5rem;
 
-    input {
-      width: 15rem;
-      border: 0;
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      background-color: var(--accent-color);
-      font-weight: 500;
-    }
-
-    .task-focus,
-    .subtasks {
+    & > div {
+      width: 100%;
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
-  }
 
-  .subtask-manager {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .subtask-remove-btn,
-  .subtask-add-btn {
-    font-size: 1.5rem;
+    .task-focus {
+      input {
+        border: 0;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        background-color: var(--accent-color);
+        font-weight: 500;
+      }
+    }
   }
 
   .update-submit-btn {
@@ -90,60 +63,23 @@ const StyledTaskEditingModal = styled.div`
 
 const TaskEditingModal = (props) => {
   const {
-    uid,
-    taskKey,
-    task,
-    visibility,
-    setVisibility,
     focusValue,
     setFocusValue,
     subtaskList,
     setSubtaskList,
+    updateTask,
+    modalVisibility,
+    setModalVisibility,
   } = props;
 
   const updateFocusValue = (e) => {
     setFocusValue(e.target.value);
   };
 
-  const updateSubtaskValue = (e, position) => {
-    let subtasks = [...subtaskList];
-    subtasks[position].subtask = e.target.value;
-    setSubtaskList(subtasks);
-  };
-
-  const addNewSubtask = () => {
-    setSubtaskList([
-      ...subtaskList,
-      { id: uuid(), subtask: "", isDone: false },
-    ]);
-    // if (subtaskList.length) {
-    // } else {
-    //   setSubtaskList([{ id: uuid(), subtask: "", isDone: false }]);
-    // }
-  };
-
-  const removeSubtask = (position) => {
-    let updatedSubtaskList = [...subtaskList];
-    updatedSubtaskList.splice(position, 1);
-    setSubtaskList(updatedSubtaskList);
-  };
-
-  const updateTask = (e) => {
-    e.preventDefault();
-    db.collection(`users/${uid}/tasks`)
-      .doc(taskKey)
-      .set({
-        ...task,
-        focus: focusValue,
-        subtasks: subtaskList,
-      });
-    setVisibility(false);
-  };
-
   return (
     <StyledTaskEditingModal
-      className={visibility ? "open" : ""}
-      onClick={() => setVisibility(false)}
+      className={modalVisibility ? "open" : ""}
+      onClick={() => setModalVisibility(false)}
     >
       <form
         className="task-edit-form"
@@ -154,42 +90,18 @@ const TaskEditingModal = (props) => {
           <p>Focus:</p>
           <input
             type="text"
+            className="task-focus"
             value={focusValue}
             onChange={(e) => updateFocusValue(e)}
           />
         </div>
         <div className="subtasks">
           <p>Subtasks:</p>
-          <ul className="subtask-list">
-            {subtaskList &&
-              subtaskList.map(({ id, subtask }, index) => (
-                <div className="subtask-manager" key={id}>
-                  <input
-                    type="text"
-                    name={subtask}
-                    value={subtask}
-                    placeholder="+ new subtask ?"
-                    onChange={(e) => updateSubtaskValue(e, index)}
-                  />
-                  <button
-                    type="button"
-                    className="subtask-remove-btn"
-                    onClick={() => removeSubtask(index)}
-                  >
-                    <MdRemoveCircle />
-                  </button>
-                  {subtaskList.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="subtask-add-btn"
-                      onClick={() => addNewSubtask()}
-                    >
-                      <MdAddCircle />
-                    </button>
-                  )}
-                </div>
-              ))}
-          </ul>
+          <SubtaskListHandler
+            subtaskList={subtaskList}
+            setSubtaskList={setSubtaskList}
+            comp="update"
+          />
         </div>
         <button
           type="submit"

@@ -9,7 +9,7 @@ const StyledSubtaskList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &::-webkit-scrollbar {
     width: 0.45rem;
@@ -79,7 +79,9 @@ const StyledSubtaskList = styled.ul`
   }
 `;
 
-const SubtaskList = ({ uid, taskKey, subtaskList, setSubtaskList }) => {
+const SubtaskList = (props) => {
+  const { uid, taskKey, subtaskList, setSubtaskList } = props;
+
   const handleSubtaskCheck = (subtaskId) => {
     const updatedSubtaskList = subtaskList.map((subtask) => {
       if (subtask.id === subtaskId)
@@ -96,23 +98,24 @@ const SubtaskList = ({ uid, taskKey, subtaskList, setSubtaskList }) => {
 
   return (
     <StyledSubtaskList>
-      {subtaskList.map(({ id, subtask, isDone }, index) => (
-        <li key={id} className="subtask" id={isDone ? "done" : null}>
-          <label>
-            {subtask}
-            <input
-              type="checkbox"
-              id="subtask"
-              value={subtask}
-              checked={isDone}
-              onChange={() => handleSubtaskCheck(id)}
-            />
-            <span className="checkmark">
-              <FaCheck />
-            </span>
-          </label>
-        </li>
-      ))}
+      {subtaskList &&
+        subtaskList.map(({ id, subtask, isDone }) => (
+          <li key={id} className="subtask" id={isDone ? "done" : null}>
+            <label>
+              {subtask}
+              <input
+                type="checkbox"
+                id="subtask"
+                value={subtask}
+                checked={isDone}
+                onChange={() => handleSubtaskCheck(id)}
+              />
+              <span className="checkmark">
+                <FaCheck />
+              </span>
+            </label>
+          </li>
+        ))}
     </StyledSubtaskList>
   );
 };

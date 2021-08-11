@@ -5,9 +5,8 @@ import Navbar from "./Navbar";
 import { DateContext } from "../context/DateContext";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
-import TodayTasks from "./TodayTasks";
 import AllTasks from "./AllTasks";
-import { TaskContext } from "../context/TaskContext";
+import { TaskProvider } from "../context/TaskContext";
 
 const Homepage = styled.section`
   width: 80%;
@@ -59,22 +58,21 @@ const MainSection = styled.main`
 `;
 
 const Home = () => {
-  const { tasks, currentTimestamp } = FetchAllTasks();
+  const { currentTimestamp } = FetchAllTasks();
 
   return (
-    <TaskContext.Provider value={{ tasks }}>
+    <TaskProvider>
       <DateContext.Provider value={{ currentTimestamp }}>
         <Homepage>
           <Navbar />
           <MainSection>
             <GreetUser />
             <AddTask />
-            <TodayTasks />
             <AllTasks />
           </MainSection>
         </Homepage>
       </DateContext.Provider>
-    </TaskContext.Provider>
+    </TaskProvider>
   );
 };
 
