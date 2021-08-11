@@ -1,8 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import firebase from "firebase/app";
 import db from "../firebase";
 import { AuthContext } from "../Auth";
-import { DateContext } from "../context/DateContext";
 import dayjs from "dayjs";
 import styled from "styled-components";
 import SubtaskList from "./SubtaskList";
@@ -90,7 +89,6 @@ const StyledTaskCard = styled.li`
 const TaskCard = ({ task }) => {
   const { currentUser } = useContext(AuthContext);
   const { uid } = currentUser;
-  let { currentTimestamp } = useContext(DateContext);
   const { key, status, focus, createdAt, getDoneBy, subtasks } = task;
 
   // format the task creation and closing date
@@ -98,6 +96,9 @@ const TaskCard = ({ task }) => {
   const taskCreationDate = dayjs(dt).format("MMM DD");
   const gdt = new Date(getDoneBy.toDate());
   const closeBy = dayjs(gdt).format("MMM DD");
+  const curDate = new Date();
+  const epochTime = curDate.getTime() - createdAt.toDate().getTime();
+  const hoursSinceCreation = new Date(epochTime).getHours();
 
   // logic to automatically move tasks to "backlog" when it crosses 24hour threshold
   const moveToOngoingTasks = () => {
@@ -106,12 +107,8 @@ const TaskCard = ({ task }) => {
       .set({ ...task, status: "backlog" });
   };
 
-  if (currentTimestamp) {
-    let seconds = currentTimestamp.seconds - createdAt.seconds;
-    let hoursPassed = Math.floor(seconds / 3600);
-    if (status === "todo" && hoursPassed > 24) {
-      moveToOngoingTasks();
-    }
+  if (status === "todo" && hoursSinceCreation > 24) {
+    moveToOngoingTasks();
   }
 
   // handle task status

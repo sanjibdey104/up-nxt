@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { FetchAllTasks } from "../data/AllTasks";
 import Navbar from "./Navbar";
-import { DateContext } from "../context/DateContext";
 import GreetUser from "./GreetUser";
 import AddTask from "./AddTask";
 import AllTasks from "./AllTasks";
@@ -58,20 +56,16 @@ const MainSection = styled.main`
 `;
 
 const Home = () => {
-  const { currentTimestamp } = FetchAllTasks();
-
   return (
     <TaskProvider>
-      <DateContext.Provider value={{ currentTimestamp }}>
-        <Homepage>
-          <Navbar />
-          <MainSection>
-            <GreetUser />
-            <AddTask />
-            <AllTasks />
-          </MainSection>
-        </Homepage>
-      </DateContext.Provider>
+      <Homepage>
+        <Navbar />
+        <MainSection>
+          <GreetUser />
+          <AddTask />
+          <AllTasks />
+        </MainSection>
+      </Homepage>
     </TaskProvider>
   );
 };
