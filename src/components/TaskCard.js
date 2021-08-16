@@ -91,25 +91,27 @@ const TaskCard = ({ task }) => {
   const { uid } = currentUser;
   const { key, status, focus, createdAt, getDoneBy, subtasks } = task;
 
-  // format the task creation and closing date
   const dt = new Date(createdAt.toDate());
   const taskCreationDate = dayjs(dt).format("MMM DD");
   const gdt = new Date(getDoneBy.toDate());
   const closeBy = dayjs(gdt).format("MMM DD");
+
+  // format the task creation and closing date
   const curDate = new Date();
-  const epochTime = curDate.getTime() - createdAt.toDate().getTime();
-  const hoursSinceCreation = new Date(epochTime).getHours();
+  const epochSeconds =
+    (curDate.getTime() - createdAt.toDate().getTime()) / 1000;
+  const hoursSinceCreation = Math.round(epochSeconds / 3600);
+
+  if (status === "todo" && hoursSinceCreation > 24) {
+    moveToBacklogTasks();
+  }
 
   // logic to automatically move tasks to "backlog" when it crosses 24hour threshold
-  const moveToOngoingTasks = () => {
+  const moveToBacklogTasks = () => {
     db.collection(`users/${uid}/tasks`)
       .doc(key)
       .set({ ...task, status: "backlog" });
   };
-
-  if (status === "todo" && hoursSinceCreation > 24) {
-    moveToOngoingTasks();
-  }
 
   // handle task status
   const statusOptions = ["todo", "ongoing", "done", "backlog"];
