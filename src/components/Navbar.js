@@ -41,7 +41,7 @@ const StyledNavbar = styled.nav`
 
 const Navbar = () => {
   const dt = new Date();
-  const today = dayjs(dt).format("MMMM DD, ddd");
+  const today = dayjs(dt).format("MMM DD, ddd");
 
   return (
     <StyledNavbar>
